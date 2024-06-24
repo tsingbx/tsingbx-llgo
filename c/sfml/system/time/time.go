@@ -18,16 +18,10 @@ func Init(time *Time) {
 }
 
 //go:linkname AsSeconds C._ZNK2sf4Time9asSecondsEv
-func AsSeconds(time *Time) float32 {
-	return 0
-}
+func AsSeconds(time *Time) float32
 
 //go:linkname AsMilliseconds C._ZNK2sf4Time14asMillisecondsEv
-func AsMilliseconds(time *Time) int32 {
-	return 0
-}
+func AsMilliseconds(time *Time) int32
 
 //go:linkname AsMicroseconds C._ZNK2sf4Time14asMicrosecondsEv
-func AsMicroseconds(time *Time) int64 {
-	return 0
-}
+func AsMicroseconds(time *Time) int64
