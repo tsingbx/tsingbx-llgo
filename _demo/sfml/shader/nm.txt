@@ -1,0 +1,539 @@
+000000010000b038 s GCC_except_table0
+000000010000b2cc s GCC_except_table101
+000000010000b2fc s GCC_except_table106
+000000010000b340 s GCC_except_table107
+000000010000b354 s GCC_except_table108
+000000010000b368 s GCC_except_table109
+000000010000b378 s GCC_except_table116
+000000010000b388 s GCC_except_table125
+000000010000b398 s GCC_except_table132
+000000010000b3a8 s GCC_except_table143
+000000010000b3b8 s GCC_except_table144
+000000010000b3cc s GCC_except_table161
+000000010000b3dc s GCC_except_table174
+000000010000b110 s GCC_except_table18
+000000010000b3ec s GCC_except_table192
+000000010000b400 s GCC_except_table212
+000000010000b410 s GCC_except_table214
+000000010000b420 s GCC_except_table222
+000000010000b430 s GCC_except_table228
+000000010000b440 s GCC_except_table232
+000000010000b450 s GCC_except_table239
+000000010000b474 s GCC_except_table242
+000000010000b4b8 s GCC_except_table243
+000000010000b4cc s GCC_except_table254
+000000010000b4dc s GCC_except_table261
+000000010000b4ec s GCC_except_table268
+000000010000b4fc s GCC_except_table277
+000000010000b50c s GCC_except_table283
+000000010000b51c s GCC_except_table290
+000000010000b52c s GCC_except_table291
+000000010000b540 s GCC_except_table304
+000000010000b120 s GCC_except_table33
+000000010000b550 s GCC_except_table336
+000000010000b560 s GCC_except_table347
+000000010000b570 s GCC_except_table351
+000000010000b130 s GCC_except_table42
+000000010000b154 s GCC_except_table43
+000000010000b160 s GCC_except_table47
+000000010000b184 s GCC_except_table48
+000000010000b1b0 s GCC_except_table49
+000000010000b1c0 s GCC_except_table59
+000000010000b1dc s GCC_except_table62
+000000010000b204 s GCC_except_table63
+000000010000b22c s GCC_except_table68
+000000010000b248 s GCC_except_table72
+000000010000b264 s GCC_except_table73
+000000010000b29c s GCC_except_table77
+000000010000b2ac s GCC_except_table86
+000000010000b2bc s GCC_except_table93
+                 U __Unwind_Resume
+0000000100008cd0 t abs[abi:ue170006](float)
+0000000100005a60 t cos[abi:ue170006](float)
+0000000100008540 t sin[abi:ue170006](float)
+0000000100005080 t StormBlink::onLoad()
+0000000100005280 t StormBlink::onUpdate(float, float, float)
+0000000100003bf0 t StormBlink::StormBlink()
+0000000100004f30 t StormBlink::StormBlink()
+0000000100005050 t StormBlink::~StormBlink()
+0000000100005030 t StormBlink::~StormBlink()
+0000000100005a10 t StormBlink::~StormBlink()
+                 U sf::WindowBase::pollEvent(sf::Event&)
+                 U sf::VertexArray::setPrimitiveType(sf::PrimitiveType)
+                 U sf::VertexArray::append(sf::Vertex const&)
+                 U sf::VertexArray::VertexArray(sf::PrimitiveType, unsigned long)
+                 U sf::VertexArray::VertexArray()
+0000000100005010 t sf::VertexArray::~VertexArray()
+0000000100005530 t sf::VertexArray::~VertexArray()
+                 U sf::VertexArray::operator[](unsigned long)
+                 U sf::RenderStates::Default
+                 U sf::RenderTarget::draw(sf::Drawable const&, sf::RenderStates const&)
+                 U sf::RenderTarget::clear(sf::Color const&)
+                 U sf::RenderWindow::RenderWindow(sf::VideoMode, sf::String const&, unsigned int, sf::ContextSettings const&)
+                 U sf::RenderWindow::~RenderWindow()
+                 U sf::RenderTexture::create(unsigned int, unsigned int, sf::ContextSettings const&)
+                 U sf::RenderTexture::display()
+                 U sf::RenderTexture::setSmooth(bool)
+                 U sf::RenderTexture::RenderTexture()
+                 U sf::RenderTexture::~RenderTexture()
+                 U sf::Transformable::setPosition(sf::Vector2<float> const&)
+                 U sf::Transformable::setPosition(float, float)
+0000000100007070 t sf::Transformable::Transformable(sf::Transformable const&)
+                 U sf::Transformable::~Transformable()
+0000000100003a60 t sf::ContextSettings::ContextSettings(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, bool)
+0000000100003e60 t sf::ContextSettings::ContextSettings(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int, bool)
+                 U sf::Font::loadFromFile(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+                 U sf::Font::Font()
+                 U sf::Font::~Font()
+0000000100006c20 t sf::Rect<int>::Rect(int, int, int, int)
+0000000100003ce0 t sf::Rect<int>::Rect()
+0000000100006cc0 t sf::Rect<int>::Rect(int, int, int, int)
+0000000100008de0 t sf::Rect<int>::Rect()
+                 U sf::Text::setFillColor(sf::Color const&)
+                 U sf::Text::setCharacterSize(unsigned int)
+                 U sf::Text::setFont(sf::Font const&)
+                 U sf::Text::setString(sf::String const&)
+                 U sf::Text::Text(sf::String const&, sf::Font const&, unsigned int)
+                 U sf::Text::Text()
+0000000100003e00 t sf::Text::~Text()
+0000000100008cf0 t sf::Text::~Text()
+                 U sf::Clock::Clock()
+                 U sf::Color::White
+                 U sf::Color::Color(unsigned char, unsigned char, unsigned char, unsigned char)
+                 U sf::Mouse::getPosition(sf::WindowBase const&)
+                 U sf::Shader::setUniform(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, sf::Shader::CurrentTextureType)
+                 U sf::Shader::setUniform(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, sf::Vector2<float> const&)
+                 U sf::Shader::setUniform(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, float)
+                 U sf::Shader::isAvailable()
+                 U sf::Shader::loadFromFile(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, sf::Shader::Type)
+                 U sf::Shader::loadFromFile(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+                 U sf::Shader::loadFromFile(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+                 U sf::Shader::isGeometryAvailable()
+                 U sf::Shader::Shader()
+                 U sf::Shader::~Shader()
+                 U sf::Sprite::setTexture(sf::Texture const&, bool)
+                 U sf::Sprite::setColor(sf::Color const&)
+0000000100007e90 t sf::Sprite::Sprite(sf::Sprite&&)
+                 U sf::Sprite::Sprite(sf::Texture const&)
+                 U sf::Sprite::Sprite(sf::Texture const&, sf::Rect<int> const&)
+0000000100006fa0 t sf::Sprite::Sprite(sf::Sprite const&)
+                 U sf::Sprite::Sprite()
+0000000100007ec0 t sf::Sprite::Sprite(sf::Sprite&&)
+0000000100006fd0 t sf::Sprite::Sprite(sf::Sprite const&)
+0000000100003e20 t sf::Sprite::~Sprite()
+0000000100008d90 t sf::Sprite::~Sprite()
+                 U sf::String::String(char const*, std::__1::locale const&)
+                 U sf::String::String(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, std::__1::locale const&)
+0000000100003ac0 t sf::String::~String()
+0000000100003ec0 t sf::String::~String()
+                 U sf::Vertex::Vertex(sf::Vector2<float> const&, sf::Color const&)
+                 U sf::Window::setVerticalSyncEnabled(bool)
+                 U sf::Window::close()
+                 U sf::Window::display()
+                 U sf::Texture::loadFromFile(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, sf::Rect<int> const&)
+                 U sf::Texture::setSmooth(bool)
+                 U sf::Texture::Texture()
+                 U sf::Texture::~Texture()
+0000000100004ed0 t sf::Vector2<float>::Vector2(float, float)
+0000000100008520 t sf::Vector2<float>::Vector2()
+0000000100004f00 t sf::Vector2<float>::Vector2(float, float)
+0000000100008580 t sf::Vector2<float>::Vector2()
+0000000100007050 t sf::Drawable::Drawable(sf::Drawable const&)
+0000000100004870 t sf::Drawable::Drawable()
+00000001000048d0 t sf::Drawable::~Drawable()
+00000001000048c0 t sf::Drawable::~Drawable()
+0000000100004890 t sf::Drawable::~Drawable()
+                 U sf::Transform::rotate(float)
+                 U sf::Transform::Identity
+                 U sf::Transform::translate(float, float)
+                 U sf::Transform::Transform()
+                 U sf::VideoMode::VideoMode(unsigned int, unsigned int, unsigned int)
+0000000100005ca0 t Edge::onLoad()
+0000000100006100 t Edge::onUpdate(float, float, float)
+0000000100003c10 t Edge::Edge()
+0000000100005a80 t Edge::Edge()
+0000000100005c70 t Edge::~Edge()
+0000000100005c50 t Edge::~Edge()
+0000000100006b90 t Edge::~Edge()
+0000000100003c90 T Effect::load()
+0000000100010370 S Effect::s_font
+0000000100003d20 T Effect::update(float, float, float)
+0000000100004940 T Effect::getFont()
+0000000100003b10 T Effect::setFont(sf::Font const&)
+0000000100004290 t Effect::Effect(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+00000001000048b0 t Effect::~Effect()
+00000001000048a0 t Effect::~Effect()
+0000000100004300 t Effect::~Effect()
+0000000100008710 t Geometry::onLoad()
+0000000100008ad0 t Geometry::onUpdate(float, float, float)
+0000000100003c30 t Geometry::Geometry()
+00000001000085a0 t Geometry::Geometry()
+00000001000086e0 t Geometry::~Geometry()
+00000001000086c0 t Geometry::~Geometry()
+0000000100008c70 t Geometry::~Geometry()
+00000001000045a0 t Pixelate::onLoad()
+0000000100004790 t Pixelate::onUpdate(float, float, float)
+0000000100003bb0 t Pixelate::Pixelate()
+0000000100004180 t Pixelate::Pixelate()
+0000000100004360 t Pixelate::~Pixelate()
+0000000100004340 t Pixelate::~Pixelate()
+00000001000048e0 t Pixelate::~Pixelate()
+0000000100004ac0 t WaveBlur::onLoad()
+0000000100004ca0 t WaveBlur::onUpdate(float, float, float)
+0000000100003bd0 t WaveBlur::WaveBlur()
+0000000100004990 t WaveBlur::WaveBlur()
+0000000100004a90 t WaveBlur::~WaveBlur()
+0000000100004a70 t WaveBlur::~WaveBlur()
+0000000100004e80 t WaveBlur::~WaveBlur()
+00000001000054f0 t StormBlink::onDraw(sf::RenderTarget&, sf::RenderStates) const
+                 U sf::WindowBase::isOpen() const
+                 U sf::RenderWindow::getSize() const
+                 U sf::RenderTexture::getTexture() const
+                 U sf::Time::asSeconds() const
+                 U sf::Clock::getElapsedTime() const
+0000000100006500 t Edge::onDraw(sf::RenderTarget&, sf::RenderStates) const
+0000000100004390 t Effect::draw(sf::RenderTarget&, sf::RenderStates) const
+0000000100003d00 T Effect::getName() const
+0000000100008c00 t Geometry::onDraw(sf::RenderTarget&, sf::RenderStates) const
+0000000100004830 t Pixelate::onDraw(sf::RenderTarget&, sf::RenderStates) const
+0000000100004e40 t WaveBlur::onDraw(sf::RenderTarget&, sf::RenderStates) const
+000000010000a320 T std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> > std::__1::__move_loop<std::__1::_ClassicAlgPolicy>::operator()[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>) const
+000000010000a8e0 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__get_long_size[abi:ue170006]() const
+000000010000a900 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__get_short_size[abi:ue170006]() const
+000000010000a860 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::size[abi:ue170006]() const
+                 U std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::compare(unsigned long, unsigned long, char const*, unsigned long) const
+000000010000a8b0 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__is_long[abi:ue170006]() const
+0000000100004000 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__get_long_cap[abi:ue170006]() const
+0000000100003f60 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__is_long[abi:ue170006]() const
+00000001000083f0 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::capacity[abi:ue170006]() const
+00000001000084e0 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__end_cap[abi:ue170006]() const
+000000010000a740 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::capacity[abi:ue170006]() const
+000000010000a820 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__end_cap[abi:ue170006]() const
+0000000100008210 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::base[abi:ue170006]() const
+0000000100008290 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::operator*[abi:ue170006]() const
+0000000100008270 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::operator->[abi:ue170006]() const
+0000000100007ae0 t std::__1::reverse_iterator<sf::Sprite*>::base[abi:ue170006]() const
+0000000100007d20 t std::__1::reverse_iterator<sf::Sprite*>::operator*[abi:ue170006]() const
+0000000100007f80 t std::__1::reverse_iterator<sf::Sprite*>::operator->[abi:ue170006]() const
+0000000100009dd0 t std::__1::reverse_iterator<Effect**>::base[abi:ue170006]() const
+000000010000a560 t std::__1::reverse_iterator<Effect**>::operator*[abi:ue170006]() const
+000000010000a930 t std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, std::__1::allocator<char> >::first[abi:ue170006]() const
+0000000100004030 t std::__1::__compressed_pair<std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__rep, std::__1::allocator<unsigned int> >::first[abi:ue170006]() const
+0000000100006b60 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::first[abi:ue170006]() const
+00000001000074b0 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::second[abi:ue170006]() const
+0000000100008500 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite>&>::first[abi:ue170006]() const
+00000001000059e0 t std::__1::__compressed_pair<sf::Vertex*, std::__1::allocator<sf::Vertex> >::first[abi:ue170006]() const
+00000001000094a0 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::first[abi:ue170006]() const
+0000000100009a70 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::second[abi:ue170006]() const
+000000010000a840 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*>&>::first[abi:ue170006]() const
+000000010000a950 t std::__1::__compressed_pair_elem<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, 0, false>::__get[abi:ue170006]() const
+0000000100004050 t std::__1::__compressed_pair_elem<std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__rep, 0, false>::__get[abi:ue170006]() const
+00000001000074d0 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Sprite>, 1, true>::__get[abi:ue170006]() const
+0000000100009a90 t std::__1::__compressed_pair_elem<std::__1::allocator<Effect*>, 1, true>::__get[abi:ue170006]() const
+0000000100006b80 t std::__1::__compressed_pair_elem<sf::Sprite*, 0, false>::__get[abi:ue170006]() const
+0000000100005a00 t std::__1::__compressed_pair_elem<sf::Vertex*, 0, false>::__get[abi:ue170006]() const
+00000001000094c0 t std::__1::__compressed_pair_elem<Effect**, 0, false>::__get[abi:ue170006]() const
+0000000100007fe0 t std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >::operator()[abi:ue170006]() const
+0000000100007460 t bool std::__1::__less<void, void>::operator()[abi:ue170006]<unsigned long, unsigned long>(unsigned long const&, unsigned long const&) const
+00000001000070d0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__recommend[abi:ue170006](unsigned long) const
+0000000100007b40 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__annotate_new[abi:ue170006](unsigned long) const
+0000000100006820 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__annotate_delete[abi:ue170006]() const
+0000000100007340 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__throw_length_error[abi:ue170006]() const
+0000000100006a50 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__annotate_contiguous_container[abi:ue170006](void const*, void const*, void const*, void const*) const
+0000000100006a70 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::data[abi:ue170006]() const
+0000000100006a90 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::size[abi:ue170006]() const
+00000001000073e0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__alloc[abi:ue170006]() const
+0000000100006930 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::capacity[abi:ue170006]() const
+00000001000072e0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::max_size() const
+0000000100006b40 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__end_cap[abi:ue170006]() const
+00000001000056c0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__annotate_delete[abi:ue170006]() const
+00000001000058d0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__annotate_contiguous_container[abi:ue170006](void const*, void const*, void const*, void const*) const
+00000001000058f0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::data[abi:ue170006]() const
+0000000100005910 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::size[abi:ue170006]() const
+00000001000057c0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::capacity[abi:ue170006]() const
+00000001000059c0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__end_cap[abi:ue170006]() const
+0000000100009780 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__recommend[abi:ue170006](unsigned long) const
+0000000100009e30 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__annotate_new[abi:ue170006](unsigned long) const
+00000001000091d0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__annotate_delete[abi:ue170006]() const
+00000001000099f0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__throw_length_error[abi:ue170006]() const
+00000001000093d0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__annotate_contiguous_container[abi:ue170006](void const*, void const*, void const*, void const*) const
+00000001000093f0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::data[abi:ue170006]() const
+0000000100003c50 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::size[abi:ue170006]() const
+0000000100009a30 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__alloc[abi:ue170006]() const
+00000001000092d0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::capacity[abi:ue170006]() const
+0000000100009990 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::max_size() const
+0000000100009480 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__end_cap[abi:ue170006]() const
+0000000100007490 t std::__1::allocator<sf::Sprite>::max_size[abi:ue170006]() const
+0000000100009a50 t std::__1::allocator<Effect*>::max_size[abi:ue170006]() const
+                 U std::logic_error::logic_error(char const*)
+0000000100007560 t std::length_error::length_error[abi:ue170006](char const*)
+0000000100007590 t std::length_error::length_error[abi:ue170006](char const*)
+                 U std::length_error::~length_error()
+                 U std::bad_array_new_length::bad_array_new_length()
+                 U std::bad_array_new_length::~bad_array_new_length()
+0000000100008e90 t std::__1::char_traits<char>::length[abi:ue170006](char const*)
+0000000100006a20 t sf::Sprite* std::__1::__to_address[abi:ue170006]<sf::Sprite>(sf::Sprite*)
+00000001000058b0 t sf::Vertex* std::__1::__to_address[abi:ue170006]<sf::Vertex>(sf::Vertex*)
+00000001000081c0 t __ZNSt3__112__to_addressB8ue170006INS_16reverse_iteratorINS1_IPN2sf6SpriteEEEEEvEEu7__decayIDTclsr19__to_address_helperIT_EE6__callclsr3stdE7declvalIRKS7_EEEEES9_
+0000000100007d00 t __ZNSt3__112__to_addressB8ue170006INS_16reverse_iteratorIPN2sf6SpriteEEEvEEu7__decayIDTclsr19__to_address_helperIT_EE6__callclsr3stdE7declvalIRKS6_EEEEES8_
+00000001000093b0 t Effect** std::__1::__to_address[abi:ue170006]<Effect*>(Effect**)
+                 U std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__init(char const*, unsigned long)
+0000000100003ae0 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::basic_string[abi:ue170006]<0>(char const*)
+                 U std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::basic_string(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+0000000100008e10 t std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::basic_string[abi:ue170006]<0>(char const*)
+                 U std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::~basic_string()
+0000000100003fe0 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__get_long_pointer[abi:ue170006]()
+0000000100003fc0 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__alloc[abi:ue170006]()
+0000000100003ee0 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::~basic_string()
+0000000100003f00 t std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::~basic_string()
+000000010000a490 t std::__1::reverse_iterator<Effect**> std::__1::__rewrap_iter[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::__unwrap_iter_impl<std::__1::reverse_iterator<Effect**>, false> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+000000010000a3c0 t decltype(std::__1::__unwrap_iter_impl<std::__1::reverse_iterator<Effect**>, false>::__unwrap(std::declval<std::__1::reverse_iterator<Effect**> >())) std::__1::__unwrap_iter[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::__unwrap_iter_impl<std::__1::reverse_iterator<Effect**>, false>, 0>(std::__1::reverse_iterator<Effect**>)
+000000010000a430 t std::__1::reverse_iterator<Effect**> std::__1::__rewrap_range[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+0000000100008430 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__destruct_at_end[abi:ue170006](sf::Sprite*)
+0000000100008460 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__destruct_at_end[abi:ue170006](sf::Sprite*, std::__1::integral_constant<bool, false>)
+00000001000083d0 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::clear[abi:ue170006]()
+0000000100007760 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__alloc[abi:ue170006]()
+0000000100007780 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__end_cap[abi:ue170006]()
+0000000100007160 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<sf::Sprite>&)
+0000000100007620 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<sf::Sprite>&)
+00000001000072c0 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::~__split_buffer()
+0000000100008360 t std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>::~__split_buffer()
+000000010000a770 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__destruct_at_end[abi:ue170006](Effect**)
+000000010000a7a0 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__destruct_at_end[abi:ue170006](Effect**, std::__1::integral_constant<bool, false>)
+000000010000a720 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::clear[abi:ue170006]()
+0000000100009be0 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__alloc[abi:ue170006]()
+0000000100009c00 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__end_cap[abi:ue170006]()
+0000000100009810 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Effect*>&)
+0000000100009aa0 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::__split_buffer(unsigned long, unsigned long, std::__1::allocator<Effect*>&)
+0000000100009970 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::~__split_buffer()
+000000010000a6b0 t std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>::~__split_buffer()
+000000010000a290 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> > std::__1::__unwrap_range[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+0000000100007400 t std::__1::numeric_limits<long>::max[abi:ue170006]()
+00000001000066e0 t std::__1::__non_trivial_if<true, std::__1::allocator<sf::Sprite> >::__non_trivial_if[abi:ue170006]()
+0000000100009090 t std::__1::__non_trivial_if<true, std::__1::allocator<Effect*> >::__non_trivial_if[abi:ue170006]()
+0000000100008f40 t std::__1::__non_trivial_if<true, std::__1::allocator<char> >::__non_trivial_if[abi:ue170006]()
+00000001000068e0 t std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::deallocate[abi:ue170006](std::__1::allocator<sf::Sprite>&, sf::Sprite*, unsigned long)
+00000001000069f0 T void std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::destroy[abi:ue170006]<sf::Sprite, void>(std::__1::allocator<sf::Sprite>&, sf::Sprite*)
+00000001000073c0 T unsigned long std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::max_size[abi:ue170006]<std::__1::allocator<sf::Sprite>, void>(std::__1::allocator<sf::Sprite> const&)
+0000000100006ee0 T void std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::construct[abi:ue170006]<sf::Sprite, sf::Sprite const&, void>(std::__1::allocator<sf::Sprite>&, sf::Sprite*, sf::Sprite const&)
+0000000100007cd0 T void std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::construct[abi:ue170006]<sf::Sprite, sf::Sprite, void>(std::__1::allocator<sf::Sprite>&, sf::Sprite*, sf::Sprite&&)
+0000000100005770 t std::__1::allocator_traits<std::__1::allocator<sf::Vertex> >::deallocate[abi:ue170006](std::__1::allocator<sf::Vertex>&, sf::Vertex*, unsigned long)
+0000000100005880 T void std::__1::allocator_traits<std::__1::allocator<sf::Vertex> >::destroy[abi:ue170006]<sf::Vertex, void>(std::__1::allocator<sf::Vertex>&, sf::Vertex*)
+0000000100009280 t std::__1::allocator_traits<std::__1::allocator<Effect*> >::deallocate[abi:ue170006](std::__1::allocator<Effect*>&, Effect**, unsigned long)
+0000000100009380 T void std::__1::allocator_traits<std::__1::allocator<Effect*> >::destroy[abi:ue170006]<Effect*, void>(std::__1::allocator<Effect*>&, Effect**)
+0000000100009a10 T unsigned long std::__1::allocator_traits<std::__1::allocator<Effect*> >::max_size[abi:ue170006]<std::__1::allocator<Effect*>, void>(std::__1::allocator<Effect*> const&)
+00000001000096b0 T void std::__1::allocator_traits<std::__1::allocator<Effect*> >::construct[abi:ue170006]<Effect*, Effect*, void>(std::__1::allocator<Effect*>&, Effect**, Effect*&&)
+0000000100003f90 t std::__1::allocator_traits<std::__1::allocator<unsigned int> >::deallocate[abi:ue170006](std::__1::allocator<unsigned int>&, unsigned int*, unsigned long)
+0000000100008140 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::reverse_iterator[abi:ue170006](std::__1::reverse_iterator<sf::Sprite*>)
+00000001000082f0 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::reverse_iterator[abi:ue170006](std::__1::reverse_iterator<sf::Sprite*>)
+00000001000081e0 t std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >::operator++[abi:ue170006]()
+0000000100007ab0 t std::__1::reverse_iterator<sf::Sprite*>::reverse_iterator[abi:ue170006](sf::Sprite*)
+0000000100008330 t std::__1::reverse_iterator<sf::Sprite*>::reverse_iterator[abi:ue170006](sf::Sprite*)
+00000001000082d0 t std::__1::reverse_iterator<sf::Sprite*>::operator--[abi:ue170006]()
+0000000100007d50 t std::__1::reverse_iterator<sf::Sprite*>::operator++[abi:ue170006]()
+0000000100009da0 t std::__1::reverse_iterator<Effect**>::reverse_iterator[abi:ue170006](Effect**)
+000000010000a680 t std::__1::reverse_iterator<Effect**>::reverse_iterator[abi:ue170006](Effect**)
+000000010000a590 t std::__1::reverse_iterator<Effect**>::operator++[abi:ue170006]()
+0000000100008e60 t std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, std::__1::allocator<char> >::__compressed_pair[abi:ue170006]<std::__1::__default_init_tag, std::__1::__default_init_tag>(std::__1::__default_init_tag&&, std::__1::__default_init_tag&&)
+0000000100008ec0 t std::__1::__compressed_pair<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, std::__1::allocator<char> >::__compressed_pair[abi:ue170006]<std::__1::__default_init_tag, std::__1::__default_init_tag>(std::__1::__default_init_tag&&, std::__1::__default_init_tag&&)
+0000000100004150 t std::__1::__compressed_pair<std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__rep, std::__1::allocator<unsigned int> >::first[abi:ue170006]()
+0000000100004120 t std::__1::__compressed_pair<std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__rep, std::__1::allocator<unsigned int> >::second[abi:ue170006]()
+0000000100006e80 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::first[abi:ue170006]()
+0000000100006b10 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::second[abi:ue170006]()
+0000000100006610 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::__default_init_tag>(std::nullptr_t&&, std::__1::__default_init_tag&&)
+0000000100006640 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite> >::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::__default_init_tag>(std::nullptr_t&&, std::__1::__default_init_tag&&)
+0000000100007910 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite>&>::first[abi:ue170006]()
+00000001000078d0 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite>&>::second[abi:ue170006]()
+00000001000076f0 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite>&>::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::allocator<sf::Sprite>&>(std::nullptr_t&&, std::__1::allocator<sf::Sprite>&)
+00000001000077a0 t std::__1::__compressed_pair<sf::Sprite*, std::__1::allocator<sf::Sprite>&>::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::allocator<sf::Sprite>&>(std::nullptr_t&&, std::__1::allocator<sf::Sprite>&)
+0000000100005990 t std::__1::__compressed_pair<sf::Vertex*, std::__1::allocator<sf::Vertex> >::second[abi:ue170006]()
+0000000100009650 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::first[abi:ue170006]()
+0000000100009450 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::second[abi:ue170006]()
+0000000100008fc0 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::__default_init_tag>(std::nullptr_t&&, std::__1::__default_init_tag&&)
+0000000100008ff0 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*> >::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::__default_init_tag>(std::nullptr_t&&, std::__1::__default_init_tag&&)
+0000000100009d10 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*>&>::first[abi:ue170006]()
+0000000100009cd0 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*>&>::second[abi:ue170006]()
+0000000100009b70 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*>&>::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::allocator<Effect*>&>(std::nullptr_t&&, std::__1::allocator<Effect*>&)
+0000000100009c20 t std::__1::__compressed_pair<Effect**, std::__1::allocator<Effect*>&>::__compressed_pair[abi:ue170006]<std::nullptr_t, std::__1::allocator<Effect*>&>(std::nullptr_t&&, std::__1::allocator<Effect*>&)
+0000000100007890 t std::__1::__libcpp_allocate[abi:ue170006](unsigned long, unsigned long)
+0000000100008f50 t std::__1::__constexpr_strlen[abi:ue170006](char const*)
+000000010000a650 t std::__1::__unwrap_iter_impl<std::__1::reverse_iterator<Effect**>, false>::__rewrap[abi:ue170006](std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+000000010000a5c0 t std::__1::__unwrap_iter_impl<std::__1::reverse_iterator<Effect**>, false>::__unwrap[abi:ue170006](std::__1::reverse_iterator<Effect**>)
+0000000100007720 t std::__1::__allocation_result<std::__1::allocator_traits<std::__1::allocator<sf::Sprite> >::pointer> std::__1::__allocate_at_least[abi:ue170006]<std::__1::allocator<sf::Sprite> >(std::__1::allocator<sf::Sprite>&, unsigned long)
+0000000100009ba0 t std::__1::__allocation_result<std::__1::allocator_traits<std::__1::allocator<Effect*> >::pointer> std::__1::__allocate_at_least[abi:ue170006]<std::__1::allocator<Effect*> >(std::__1::allocator<Effect*>&, unsigned long)
+00000001000080d0 t void std::__1::__allocator_destroy[abi:ue170006]<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >, std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> > >(std::__1::allocator<sf::Sprite>&, std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >, std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >)
+00000001000040a0 t std::__1::__libcpp_deallocate[abi:ue170006](void*, unsigned long, unsigned long)
+0000000100008230 t std::__1::__to_address_helper<std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> >, void>::__call[abi:ue170006](std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> > const&)
+0000000100007f40 t std::__1::__to_address_helper<std::__1::reverse_iterator<sf::Sprite*>, void>::__call[abi:ue170006](std::__1::reverse_iterator<sf::Sprite*> const&)
+00000001000074f0 t std::__1::__throw_length_error[abi:ue170006](char const*)
+00000001000078b0 t void* std::__1::__libcpp_operator_new[abi:ue170006]<unsigned long>(unsigned long)
+000000010000a080 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> > std::__1::__unwrap_and_dispatch[abi:ue170006]<std::__1::__overload<std::__1::__move_loop<std::__1::_ClassicAlgPolicy>, std::__1::__move_trivial>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, 0>(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+0000000100008ef0 t std::__1::__compressed_pair_elem<std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> >::__rep, 0, false>::__compressed_pair_elem[abi:ue170006](std::__1::__default_init_tag)
+0000000100004170 t std::__1::__compressed_pair_elem<std::__1::basic_string<unsigned int, std::__1::char_traits<unsigned int>, std::__1::allocator<unsigned int> >::__rep, 0, false>::__get[abi:ue170006]()
+0000000100006b30 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Sprite>, 1, true>::__get[abi:ue170006]()
+00000001000066a0 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Sprite>, 1, true>::__compressed_pair_elem[abi:ue170006](std::__1::__default_init_tag)
+00000001000059b0 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Vertex>, 1, true>::__get[abi:ue170006]()
+0000000100009470 t std::__1::__compressed_pair_elem<std::__1::allocator<Effect*>, 1, true>::__get[abi:ue170006]()
+0000000100009050 t std::__1::__compressed_pair_elem<std::__1::allocator<Effect*>, 1, true>::__compressed_pair_elem[abi:ue170006](std::__1::__default_init_tag)
+0000000100008f00 t std::__1::__compressed_pair_elem<std::__1::allocator<char>, 1, true>::__compressed_pair_elem[abi:ue170006](std::__1::__default_init_tag)
+0000000100004140 t std::__1::__compressed_pair_elem<std::__1::allocator<unsigned int>, 1, true>::__get[abi:ue170006]()
+0000000100006ea0 t std::__1::__compressed_pair_elem<sf::Sprite*, 0, false>::__get[abi:ue170006]()
+0000000100006680 t std::__1::__compressed_pair_elem<sf::Sprite*, 0, false>::__compressed_pair_elem[abi:ue170006]<std::nullptr_t, void>(std::nullptr_t&&)
+0000000100009670 t std::__1::__compressed_pair_elem<Effect**, 0, false>::__get[abi:ue170006]()
+0000000100009030 t std::__1::__compressed_pair_elem<Effect**, 0, false>::__compressed_pair_elem[abi:ue170006]<std::nullptr_t, void>(std::nullptr_t&&)
+00000001000078f0 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Sprite>&, 1, false>::__get[abi:ue170006]()
+00000001000077e0 t std::__1::__compressed_pair_elem<std::__1::allocator<sf::Sprite>&, 1, false>::__compressed_pair_elem[abi:ue170006]<std::__1::allocator<sf::Sprite>&, void>(std::__1::allocator<sf::Sprite>&)
+0000000100009cf0 t std::__1::__compressed_pair_elem<std::__1::allocator<Effect*>&, 1, false>::__get[abi:ue170006]()
+0000000100009c60 t std::__1::__compressed_pair_elem<std::__1::allocator<Effect*>&, 1, false>::__compressed_pair_elem[abi:ue170006]<std::__1::allocator<Effect*>&, void>(std::__1::allocator<Effect*>&)
+0000000100007bf0 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > > std::__1::__make_exception_guard[abi:ue170006]<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >(std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >)
+0000000100009ff0 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> > std::__1::__dispatch_copy_or_move[abi:ue170006]<std::__1::_ClassicAlgPolicy, std::__1::__move_loop<std::__1::_ClassicAlgPolicy>, std::__1::__move_trivial, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+00000001000074e0 t std::__1::__libcpp_numeric_limits<long, true>::max[abi:ue170006]()
+0000000100004100 t void std::__1::__libcpp_operator_delete[abi:ue170006]<void*>(void*)
+00000001000040e0 t void std::__1::__do_deallocate_handle_size[abi:ue170006]<>(void*, unsigned long)
+0000000100007d70 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >::__complete[abi:ue170006]()
+0000000100007db0 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >::__exception_guard_exceptions[abi:ue170006](std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >)
+0000000100007df0 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >::__exception_guard_exceptions[abi:ue170006](std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >)
+0000000100007d90 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >::~__exception_guard_exceptions[abi:ue170006]()
+0000000100007fa0 t std::__1::__exception_guard_exceptions<std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> > >::~__exception_guard_exceptions[abi:ue170006]()
+0000000100007c50 t std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >::_AllocatorDestroyRangeReverse[abi:ue170006](std::__1::allocator<sf::Sprite>&, std::__1::reverse_iterator<sf::Sprite*>&, std::__1::reverse_iterator<sf::Sprite*>&)
+0000000100007e20 t std::__1::_AllocatorDestroyRangeReverse<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*> >::_AllocatorDestroyRangeReverse[abi:ue170006](std::__1::allocator<sf::Sprite>&, std::__1::reverse_iterator<sf::Sprite*>&, std::__1::reverse_iterator<sf::Sprite*>&)
+0000000100007360 t unsigned long const& std::__1::max[abi:ue170006]<unsigned long>(unsigned long const&, unsigned long const&)
+00000001000075d0 t unsigned long const& std::__1::max[abi:ue170006]<unsigned long, std::__1::__less<void, void> >(unsigned long const&, unsigned long const&, std::__1::__less<void, void>)
+0000000100007390 t unsigned long const& std::__1::min[abi:ue170006]<unsigned long>(unsigned long const&, unsigned long const&)
+0000000100007410 t unsigned long const& std::__1::min[abi:ue170006]<unsigned long, std::__1::__less<void, void> >(unsigned long const&, unsigned long const&, std::__1::__less<void, void>)
+0000000100007930 t std::__1::reverse_iterator<sf::Sprite*> std::__1::__uninitialized_allocator_move_if_noexcept[abi:ue170006]<std::__1::allocator<sf::Sprite>, std::__1::reverse_iterator<sf::Sprite*>, std::__1::reverse_iterator<sf::Sprite*>, std::__1::reverse_iterator<sf::Sprite*> >(std::__1::allocator<sf::Sprite>&, std::__1::reverse_iterator<sf::Sprite*>, std::__1::reverse_iterator<sf::Sprite*>, std::__1::reverse_iterator<sf::Sprite*>)
+0000000100009d30 t std::__1::reverse_iterator<Effect**> std::__1::__uninitialized_allocator_move_if_noexcept[abi:ue170006]<std::__1::allocator<Effect*>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, Effect*, void>(std::__1::allocator<Effect*>&, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+0000000100009ee0 t std::__1::reverse_iterator<Effect**> std::__1::move[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+000000010000a5e0 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >::pair[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, (void*)0>(std::__1::reverse_iterator<Effect**>&&, std::__1::reverse_iterator<Effect**>&&)
+000000010000a610 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >::pair[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, (void*)0>(std::__1::reverse_iterator<Effect**>&&, std::__1::reverse_iterator<Effect**>&&)
+0000000100007b00 t std::__1::enable_if<(is_move_constructible<sf::Sprite*>::value) && (is_move_assignable<sf::Sprite*>::value), void>::type std::__1::swap[abi:ue170006]<sf::Sprite*>(sf::Sprite*&, sf::Sprite*&)
+0000000100009df0 t std::__1::enable_if<(is_move_constructible<Effect**>::value) && (is_move_assignable<Effect**>::value), void>::type std::__1::swap[abi:ue170006]<Effect**>(Effect**&, Effect**&)
+0000000100009f60 t std::__1::pair<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> > std::__1::__move[abi:ue170006]<std::__1::_ClassicAlgPolicy, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**>)
+                 U std::__1::locale::locale()
+                 U std::__1::locale::~locale()
+0000000100006730 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >&)
+00000001000067e0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >&)
+0000000100006760 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__destroy_vector::operator()[abi:ue170006]()
+0000000100006eb0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::_ConstructTransaction::_ConstructTransaction[abi:ue170006](std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >&, unsigned long)
+0000000100006f30 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::_ConstructTransaction::_ConstructTransaction[abi:ue170006](std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >&, unsigned long)
+0000000100006f10 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::_ConstructTransaction::~_ConstructTransaction[abi:ue170006]()
+00000001000070b0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::_ConstructTransaction::~_ConstructTransaction[abi:ue170006]()
+0000000100006db0 T void std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__push_back_slow_path<sf::Sprite const&>(sf::Sprite const&)
+0000000100006970 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__base_destruct_at_end[abi:ue170006](sf::Sprite*)
+0000000100006d20 T void std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__construct_one_at_end[abi:ue170006]<sf::Sprite const&>(sf::Sprite const&)
+00000001000071a0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__swap_out_circular_buffer(std::__1::__split_buffer<sf::Sprite, std::__1::allocator<sf::Sprite>&>&)
+0000000100006910 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__alloc[abi:ue170006]()
+0000000100006800 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__clear[abi:ue170006]()
+0000000100006d00 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::__end_cap[abi:ue170006]()
+0000000100006c60 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::push_back[abi:ue170006](sf::Sprite const&)
+0000000100005c10 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::vector[abi:ue170006]()
+00000001000065c0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::vector[abi:ue170006]()
+0000000100005c30 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::~vector[abi:ue170006]()
+00000001000066f0 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::~vector[abi:ue170006]()
+0000000100008560 t std::__1::vector<sf::Sprite, std::__1::allocator<sf::Sprite> >::operator[][abi:ue170006](unsigned long)
+00000001000055d0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >&)
+0000000100005680 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >&)
+0000000100005600 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__destroy_vector::operator()[abi:ue170006]()
+0000000100005800 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__base_destruct_at_end[abi:ue170006](sf::Vertex*)
+00000001000057a0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__alloc[abi:ue170006]()
+00000001000056a0 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::__clear[abi:ue170006]()
+0000000100005570 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::~vector[abi:ue170006]()
+0000000100005590 t std::__1::vector<sf::Vertex, std::__1::allocator<sf::Vertex> >::~vector[abi:ue170006]()
+00000001000090e0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<Effect*, std::__1::allocator<Effect*> >&)
+0000000100009190 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__destroy_vector::__destroy_vector[abi:ue170006](std::__1::vector<Effect*, std::__1::allocator<Effect*> >&)
+0000000100009110 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__destroy_vector::operator()[abi:ue170006]()
+0000000100009680 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::_ConstructTransaction::_ConstructTransaction[abi:ue170006](std::__1::vector<Effect*, std::__1::allocator<Effect*> >&, unsigned long)
+0000000100009700 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::_ConstructTransaction::_ConstructTransaction[abi:ue170006](std::__1::vector<Effect*, std::__1::allocator<Effect*> >&, unsigned long)
+00000001000096e0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::_ConstructTransaction::~_ConstructTransaction[abi:ue170006]()
+0000000100009760 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::_ConstructTransaction::~_ConstructTransaction[abi:ue170006]()
+0000000100009580 T void std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__push_back_slow_path<Effect*>(Effect*&&)
+0000000100009300 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__base_destruct_at_end[abi:ue170006](Effect**)
+00000001000094f0 T void std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__construct_one_at_end[abi:ue170006]<Effect*>(Effect*&&)
+0000000100009850 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__swap_out_circular_buffer(std::__1::__split_buffer<Effect*, std::__1::allocator<Effect*>&>&)
+00000001000092b0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__alloc[abi:ue170006]()
+00000001000091b0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__clear[abi:ue170006]()
+00000001000094d0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::__end_cap[abi:ue170006]()
+0000000100003b50 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::push_back[abi:ue170006](Effect*&&)
+0000000100003b30 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::vector[abi:ue170006]()
+0000000100008f70 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::vector[abi:ue170006]()
+0000000100003e40 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::~vector[abi:ue170006]()
+00000001000090a0 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::~vector[abi:ue170006]()
+0000000100003c70 t std::__1::vector<Effect*, std::__1::allocator<Effect*> >::operator[][abi:ue170006](unsigned long)
+000000010000a540 t std::__1::enable_if<is_reference<decltype(*(std::declval<std::__1::reverse_iterator<Effect**>&>()))>::value, decltype(std::move(*(std::declval<std::__1::reverse_iterator<Effect**>&>())))>::type std::__1::_IterOps<std::__1::_ClassicAlgPolicy>::__iter_move[abi:ue170006]<std::__1::reverse_iterator<Effect**>&>(std::__1::reverse_iterator<Effect**>&)
+000000010000a5b0 t void std::__1::_IterOps<std::__1::_ClassicAlgPolicy>::__validate_iter_reference[abi:ue170006]<std::__1::reverse_iterator<Effect**>&>()
+0000000100006ac0 t std::__1::allocator<sf::Sprite>::deallocate[abi:ue170006](sf::Sprite*, unsigned long)
+0000000100006a30 t std::__1::allocator<sf::Sprite>::destroy[abi:ue170006](sf::Sprite*)
+0000000100007800 t std::__1::allocator<sf::Sprite>::allocate[abi:ue170006](unsigned long)
+0000000100006f70 T void std::__1::allocator<sf::Sprite>::construct[abi:ue170006]<sf::Sprite, sf::Sprite const&>(sf::Sprite*, sf::Sprite const&)
+0000000100007e60 T void std::__1::allocator<sf::Sprite>::construct[abi:ue170006]<sf::Sprite, sf::Sprite>(sf::Sprite*, sf::Sprite&&)
+00000001000066c0 t std::__1::allocator<sf::Sprite>::allocator[abi:ue170006]()
+0000000100005940 t std::__1::allocator<sf::Vertex>::deallocate[abi:ue170006](sf::Vertex*, unsigned long)
+00000001000058c0 t std::__1::allocator<sf::Vertex>::destroy[abi:ue170006](sf::Vertex*)
+0000000100009410 t std::__1::allocator<Effect*>::deallocate[abi:ue170006](Effect**, unsigned long)
+00000001000093c0 t std::__1::allocator<Effect*>::destroy[abi:ue170006](Effect**)
+0000000100009c80 t std::__1::allocator<Effect*>::allocate[abi:ue170006](unsigned long)
+0000000100009740 T void std::__1::allocator<Effect*>::construct[abi:ue170006]<Effect*, Effect*>(Effect**, Effect*&&)
+0000000100009070 t std::__1::allocator<Effect*>::allocator[abi:ue170006]()
+0000000100008f20 t std::__1::allocator<char>::allocator[abi:ue170006]()
+0000000100004060 t std::__1::allocator<unsigned int>::deallocate[abi:ue170006](unsigned int*, unsigned long)
+000000010000a400 t std::__1::pair<std::__1::__unwrap_ref_decay<std::__1::reverse_iterator<Effect**> >::type, std::__1::__unwrap_ref_decay<std::__1::reverse_iterator<Effect**> >::type> std::__1::make_pair[abi:ue170006]<std::__1::reverse_iterator<Effect**>, std::__1::reverse_iterator<Effect**> >(std::__1::reverse_iterator<Effect**>&&, std::__1::reverse_iterator<Effect**>&&)
+0000000100003d70 t bool std::__1::operator==[abi:ue170006]<char, std::__1::char_traits<char>, std::__1::allocator<char> >(std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&, char const*)
+0000000100008170 t bool std::__1::operator!=[abi:ue170006]<std::__1::reverse_iterator<sf::Sprite*>, std::__1::reverse_iterator<sf::Sprite*> >(std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> > const&, std::__1::reverse_iterator<std::__1::reverse_iterator<sf::Sprite*> > const&)
+0000000100007c90 t bool std::__1::operator!=[abi:ue170006]<sf::Sprite*, sf::Sprite*>(std::__1::reverse_iterator<sf::Sprite*> const&, std::__1::reverse_iterator<sf::Sprite*> const&)
+000000010000a500 t bool std::__1::operator!=[abi:ue170006]<Effect**, Effect**>(std::__1::reverse_iterator<Effect**> const&, std::__1::reverse_iterator<Effect**> const&)
+                 U std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > std::__1::operator+<char, std::__1::char_traits<char>, std::__1::allocator<char> >(char const*, std::__1::basic_string<char, std::__1::char_traits<char>, std::__1::allocator<char> > const&)
+0000000100007850 t std::__throw_bad_array_new_length[abi:ue170006]()
+                 U std::terminate()
+000000010000c230 S typeinfo for StormBlink
+000000010000c288 S typeinfo for Edge
+000000010000c100 S typeinfo for Effect
+000000010000c2e0 S typeinfo for Geometry
+000000010000c118 S typeinfo for Pixelate
+000000010000c1d8 S typeinfo for WaveBlur
+000000010000c0f0 S typeinfo for sf::Drawable
+                 U typeinfo for std::length_error
+                 U typeinfo for std::bad_array_new_length
+000000010000b01b S typeinfo name for StormBlink
+000000010000b028 S typeinfo name for Edge
+000000010000affa S typeinfo name for Effect
+000000010000b02e S typeinfo name for Geometry
+000000010000aff0 S typeinfo name for Pixelate
+000000010000b011 S typeinfo name for WaveBlur
+000000010000b002 S typeinfo name for sf::Drawable
+000000010000c1f0 s vtable for StormBlink
+000000010000c248 s vtable for Edge
+000000010000c130 s vtable for Effect
+000000010000c2a0 s vtable for Geometry
+000000010000c0b0 s vtable for Pixelate
+000000010000c198 s vtable for WaveBlur
+                 U vtable for __cxxabiv1::__class_type_info
+                 U vtable for __cxxabiv1::__si_class_type_info
+                 U vtable for sf::VertexArray
+                 U vtable for sf::Transformable
+                 U vtable for sf::Text
+                 U vtable for sf::Sprite
+000000010000c170 s vtable for sf::Drawable
+                 U vtable for std::length_error
+0000000100008d70 t non-virtual thunk to sf::Text::~Text()
+0000000100008dc0 t non-virtual thunk to sf::Sprite::~Sprite()
+                 U operator delete(void*)
+                 U operator new(unsigned long)
+                 U ___assert_rtn
+00000001000040d0 t ___clang_call_terminate
+                 U ___cxa_allocate_exception
+                 U ___cxa_begin_catch
+                 U ___cxa_free_exception
+                 U ___cxa_pure_virtual
+                 U ___cxa_throw
+                 U ___gxx_personality_v0
+                 U ___stack_chk_fail
+                 U ___stack_chk_guard
+0000000100010368 d __dyld_private
+0000000100000000 T __mh_execute_header
+                 U _cosf
+0000000100002950 T _main
+                 U _memcpy
+                 U _rand
+                 U _sinf
+                 U _strlen
+                 U dyld_stub_binder
