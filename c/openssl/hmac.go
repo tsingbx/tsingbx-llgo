@@ -8,6 +8,10 @@ import (
 
 const EVP_MAX_MD_SIZE = 64 /* longest known is SHA512 */
 
+type EVP_MD struct {
+	Unused [0]byte
+}
+
 // const EVP_MD *EVP_sha1(void)
 //
 //go:linkname EVP_sha1 C.EVP_sha1
@@ -42,14 +46,6 @@ func EVP_sha384() *EVP_MD
 //
 //go:linkname EVP_sha512 C.EVP_sha512
 func EVP_sha512() *EVP_MD
-
-type EVP_MD struct {
-	Unused [0]byte
-}
-
-type EVP_MD_CTX struct {
-	Unused [0]byte
-}
 
 type HMAC_CTX struct {
 	Unused [0]byte
