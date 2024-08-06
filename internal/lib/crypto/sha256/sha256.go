@@ -44,6 +44,16 @@ func (d *digest256) Sum(in []byte) []byte {
 	return append(in, hash[:]...)
 }
 
+func HashToMD(h hash.Hash) *openssl.EVP_MD {
+	switch h.(type) {
+	case *digest224:
+		return openssl.EVP_sha224()
+	case *digest256:
+		return openssl.EVP_sha256()
+	}
+	return nil
+}
+
 // New returns a new hash.Hash computing the SHA256 checksum.
 func New() hash.Hash {
 	d := new(digest256)

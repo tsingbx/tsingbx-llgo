@@ -43,6 +43,14 @@ func (d *digest) Sum(in []byte) []byte {
 	return append(in, hash[:]...)
 }
 
+func HashToMD(h hash.Hash) *openssl.EVP_MD {
+	switch h.(type) {
+	case *digest:
+		return openssl.EVP_sha1()
+	}
+	return nil
+}
+
 // New returns a new hash.Hash computing the SHA1 checksum.
 func New() hash.Hash {
 	d := new(digest)

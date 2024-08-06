@@ -64,6 +64,16 @@ func New() hash.Hash {
 	return d
 }
 
+func HashToMD(h hash.Hash) *openssl.EVP_MD {
+	switch h.(type) {
+	case *digest384:
+		return openssl.EVP_sha384()
+	case *digest512:
+		return openssl.EVP_sha512()
+	}
+	return nil
+}
+
 func Sum512(data []byte) (ret [Size]byte) {
 	openssl.SHA512Bytes(data, &ret[0])
 	return
