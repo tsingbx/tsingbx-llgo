@@ -3,7 +3,6 @@ package hmac
 // llgo:skipall
 import (
 	"bytes"
-	"fmt"
 	"hash"
 	"unsafe"
 
@@ -94,8 +93,6 @@ func (h *hmac) Reset() {
 // the returned Hash does not implement [encoding.BinaryMarshaler]
 // or [encoding.BinaryUnmarshaler].
 func New(h func() hash.Hash, key []byte) hash.Hash {
-	fmt.Println("My New")
-	return nil
 	if true {
 		hm := NewHMAC(h, key)
 		if hm != nil {
@@ -179,14 +176,15 @@ type boringHMAC struct {
 func (h *boringHMAC) Reset() {
 	if h.ctx != nil {
 		h.ctx.Free()
+		h.ctx = nil
 	}
 	h.ctx = openssl.NewHMAC_CTX()
 	if h.ctx == nil {
 		panic("NewHMAC_CTX fail")
 	}
-	ret := h.ctx.Init(unsafe.Pointer(unsafe.SliceData(h.key)), c.Int(len(h.key)), h.md)
+	ret := h.ctx.InitEx(unsafe.Pointer(unsafe.SliceData(h.key)), c.Int(len(h.key)), h.md, nil)
 	if ret == 0 {
-		panic("boringcrypto: HMAC_Init failed")
+		panic("boringcrypto: HMAC_InitEx failed")
 	}
 	if c.Int(h.ctx.Size()) != c.Int(h.size) {
 		println("boringcrypto: HMAC size:", h.ctx.Size(), "!=", h.size)
@@ -199,7 +197,6 @@ func (h *boringHMAC) Write(p []byte) (int, error) {
 	if len(p) > 0 {
 		h.ctx.UpdateBytes(p)
 	}
-	//runtime.KeepAlive(h)
 	return len(p), nil
 }
 
@@ -224,12 +221,13 @@ func (h *boringHMAC) Sum(in []byte) []byte {
 	if h.ctx2 == nil {
 		panic("NewHMAC_CTX fail")
 	}
-	ret := h.ctx.Copy(h.ctx2)
+	defer h.ctx2.Free()
+	ret := h.ctx2.Copy(h.ctx)
 	if ret == 0 {
 		panic("boringcrypto: HMAC_CTX_copy_ex failed")
 	}
 	var lenSum c.Uint = c.Uint(len(h.sum))
-	h.ctx2.Final(&h.sum[0], &lenSum)
+	h.ctx2.Final(unsafe.SliceData(h.sum), &lenSum)
 	return append(in, h.sum...)
 }
 
@@ -257,5 +255,5 @@ func NewHMAC(h func() hash.Hash, key []byte) hash.Hash {
 }
 
 func hashToMD(h hash.Hash) *openssl.EVP_MD {
-	return openssl.EVP_sha1()
+	return openssl.EVP_sha256()
 }
