@@ -78,8 +78,7 @@ func ssaAlloc(refs ...ssa.Instruction) *ssa.Alloc {
 
 func setRefs(v unsafe.Pointer, refs ...ssa.Instruction) {
 	off := unsafe.Offsetof(ssa.Alloc{}.Comment) - unsafe.Sizeof([]int(nil))
-	ptr := uintptr(v) + off
-	*(*[]ssa.Instruction)(unsafe.Pointer(ptr)) = refs
+	*(*[]ssa.Instruction)(unsafe.Pointer(uintptr(v) + off)) = refs
 }
 
 func TestRecvTypeName(t *testing.T) {

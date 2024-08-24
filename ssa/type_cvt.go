@@ -27,7 +27,7 @@ import (
 
 type goTypes struct {
 	typs  map[unsafe.Pointer]unsafe.Pointer
-	typbg map[string]Background
+	typbg map[string]Background //保存类型的类型背景C或者go
 }
 
 func newGoTypes() goTypes {

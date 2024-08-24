@@ -80,14 +80,15 @@ type pkgInfo struct {
 
 type none = struct{}
 
+// 编译上下文
 type context struct {
-	prog   llssa.Program
-	pkg    llssa.Package
-	fn     llssa.Function
-	fset   *token.FileSet
-	goProg *ssa.Program
-	goTyps *types.Package
-	goPkg  *ssa.Package
+	prog   llssa.Program  //llgo程序
+	pkg    llssa.Package  //llgo包
+	fn     llssa.Function //llgo函数
+	fset   *token.FileSet //llgo程序文件集
+	goProg *ssa.Program   //ssa程序
+	goTyps *types.Package //go类型包
+	goPkg  *ssa.Package   //ssa包
 	pyMod  string
 	skips  map[string]none
 	loaded map[*types.Package]*pkgInfo // loaded packages
@@ -181,6 +182,7 @@ var (
 	argvTy = types.NewPointer(types.NewPointer(types.Typ[types.Int8]))
 )
 
+// 编译ssa包函数
 func (p *context) compileFuncDecl(pkg llssa.Package, f *ssa.Function) (llssa.Function, llssa.PyObjRef, int) {
 	pkgTypes, name, ftype := p.funcName(f, true)
 	if ftype != goFunc {
@@ -803,19 +805,23 @@ func NewPackage(prog llssa.Program, pkg *ssa.Package, files []*ast.File) (ret ll
 
 // NewPackageEx compiles a Go package to LLVM IR package.
 func NewPackageEx(prog llssa.Program, patches Patches, pkg *ssa.Package, files []*ast.File) (ret llssa.Package, err error) {
-	pkgProg := pkg.Prog
-	pkgTypes := pkg.Pkg
+	pkgProg := pkg.Prog //ssa程序
+	pkgTypes := pkg.Pkg //ssa包对应go类型包
 	oldTypes := pkgTypes
+	//go类型包的名称和路径
 	pkgName, pkgPath := pkgTypes.Name(), llssa.PathOf(pkgTypes)
+	//go类型包打补丁
 	patch, hasPatch := patches[pkgPath]
 	if hasPatch {
 		pkgTypes = patch.Types
 		pkg.Pkg = pkgTypes
 		patch.Alt.Pkg = pkgTypes
 	}
+	//设置程序运行时类型
 	if pkgPath == llssa.PkgRuntime {
 		prog.SetRuntime(pkgTypes)
 	}
+	//新建一个包
 	ret = prog.NewPackage(pkgName, pkgPath)
 
 	ctx := &context{
@@ -833,13 +839,19 @@ func NewPackageEx(prog llssa.Program, patches Patches, pkg *ssa.Package, files [
 		},
 		instNamed: make(map[*types.Named]none),
 	}
+	//初始化py模块
 	ctx.initPyModule()
+	//处理go文件的doc注释，比如//go:linkname, llgo:link, //llgo:skipall等
 	ctx.initFiles(pkgPath, files)
+	//设置patch
 	ret.SetPatch(ctx.patchType)
+	//设置连接名称处理函数
 	ret.SetResolveLinkname(ctx.resolveLinkname)
 
+	//如果go包有补丁
 	if hasPatch {
 		skips := ctx.skips
+		//合并类型对象
 		typepatch.Merge(pkgTypes, oldTypes, skips, ctx.skipall)
 		ctx.skips = nil
 		ctx.state = pkgInPatch
@@ -877,6 +889,7 @@ func processPkg(ctx *context, ret llssa.Package, pkg *ssa.Package) {
 		val  ssa.Member
 	}
 
+	// 保存成员名称的切片
 	members := make([]*namedMember, 0, len(pkg.Members))
 	skips := ctx.skips
 	for name, v := range pkg.Members {
@@ -884,10 +897,12 @@ func processPkg(ctx *context, ret llssa.Package, pkg *ssa.Package) {
 			members = append(members, &namedMember{name, v})
 		}
 	}
+	// 按名称排序包成员
 	sort.Slice(members, func(i, j int) bool {
 		return members[i].name < members[j].name
 	})
 
+	// 编译ssa包所有成员
 	for _, m := range members {
 		member := m.val
 		switch member := member.(type) {

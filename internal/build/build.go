@@ -63,13 +63,16 @@ func needLLFile(mode Mode) bool {
 	return mode != ModeBuild
 }
 
+/*
+控制llgo编译的配置
+*/
 type Config struct {
 	BinPath   string
 	AppExt    string   // ".exe" on Windows, empty on Unix
 	OutFile   string   // only valid for ModeBuild when len(pkgs) == 1
 	RunArgs   []string // only valid for ModeRun
-	Mode      Mode
-	GenExpect bool // only valid for ModeCmpTest
+	Mode      Mode     //编译模式build or install or run or cmptest
+	GenExpect bool     // only valid for ModeCmpTest
 }
 
 func NewDefaultConf(mode Mode) *Config {
@@ -119,7 +122,11 @@ const (
 	loadSyntax  = loadTypes | packages.NeedSyntax | packages.NeedTypesInfo
 )
 
+/*
+llgo build命令编译入口
+*/
 func Do(args []string, conf *Config) {
+	//1、处理编译命令参数，设置到conf
 	flags, patterns, verbose := ParseArgs(args, buildFlags)
 	cfg := &packages.Config{
 		Mode:       loadSyntax | packages.NeedDeps | packages.NeedModule | packages.NeedExportFile,
@@ -127,6 +134,7 @@ func Do(args []string, conf *Config) {
 		Fset:       token.NewFileSet(),
 	}
 
+	//2、处理覆盖文件，设置到conf
 	if len(overlayFiles) > 0 {
 		cfg.Overlay = make(map[string][]byte)
 		for file, src := range overlayFiles {
@@ -135,8 +143,10 @@ func Do(args []string, conf *Config) {
 		}
 	}
 
+	//3、初始化llvm库
 	llssa.Initialize(llssa.InitAll)
 
+	//4、创建ssa程序
 	target := &llssa.Target{
 		GOOS:   build.Default.GOOS,
 		GOARCH: build.Default.GOARCH,
@@ -145,16 +155,21 @@ func Do(args []string, conf *Config) {
 	prog := llssa.NewProgram(target)
 	sizes := prog.TypeSizes
 	dedup := packages.NewDeduper()
+	//设置包加载前处理函数
 	dedup.SetPreload(func(pkg *types.Package, files []*ast.File) {
 		if canSkipToBuild(pkg.Path()) {
 			return
 		}
+		//设置类型背景//llgo:type C或者go等
 		cl.ParsePkgSyntax(prog, pkg, files)
 	})
 
+	//如果编译命令未指定路径，则默认编译当前路径
 	if patterns == nil {
 		patterns = []string{"."}
 	}
+
+	//加载并返回有patterns模式指定的go包
 	initial, err := packages.LoadEx(dedup, sizes, cfg, patterns...)
 	check(err)
 
@@ -172,19 +187,24 @@ func Do(args []string, conf *Config) {
 		return
 	}
 
+	// 获取替代包路径，每个替代包加上altPkgPathPrefix
 	altPkgPaths := altPkgs(initial, llssa.PkgRuntime)
+	// 加载替代包
 	altPkgs, err := packages.LoadEx(dedup, sizes, cfg, altPkgPaths...)
 	check(err)
 
+	// 设置程序运行时类型
 	noRt := 1
 	prog.SetRuntime(func() *types.Package {
 		noRt = 0
 		return altPkgs[0].Types
 	})
+	// 设置程序python包
 	prog.SetPython(func() *types.Package {
 		return dedup.Check(llssa.PkgPython).Types
 	})
 
+	// 创建SSA程序
 	progSSA := ssa.NewProgram(initial[0].Fset, ssaBuildMode)
 	patches := make(cl.Patches, len(altPkgPaths))
 	altSSAPkgs(progSSA, patches, altPkgs[1:], verbose)
@@ -469,8 +489,8 @@ func linkMainPkg(ctx *context, pkg *packages.Package, pkgs []*aPackage, llFiles 
 }
 
 func buildPkg(ctx *context, aPkg *aPackage, verbose bool) {
-	pkg := aPkg.Package
-	pkgPath := pkg.PkgPath
+	pkg := aPkg.Package    //go包
+	pkgPath := pkg.PkgPath //go包路径
 	if debugBuild || verbose {
 		fmt.Fprintln(os.Stderr, pkgPath)
 	}
@@ -478,22 +498,27 @@ func buildPkg(ctx *context, aPkg *aPackage, verbose bool) {
 		pkg.ExportFile = ""
 		return
 	}
+
+	// 添加替换包的语法树
 	var syntax = pkg.Syntax
 	if altPkg := aPkg.AltPkg; altPkg != nil {
 		syntax = append(syntax, altPkg.Syntax...)
 	}
+
 	showDetail := verbose && pkgExists(ctx.initial, pkg)
 	if showDetail {
 		llssa.SetDebug(llssa.DbgFlagAll)
 		cl.SetDebug(cl.DbgFlagAll)
 	}
 
+	// 将go包编译为LLVM IR包
 	ret, err := cl.NewPackageEx(ctx.prog, ctx.patches, aPkg.SSA, syntax)
 	if showDetail {
 		llssa.SetDebug(0)
 		cl.SetDebug(0)
 	}
 	check(err)
+	// 导出.ll
 	if needLLFile(ctx.mode) {
 		pkg.ExportFile += ".ll"
 		os.WriteFile(pkg.ExportFile, []byte(ret.String()), 0644)
@@ -726,6 +751,10 @@ func pkgExists(initial []*packages.Package, pkg *packages.Package) bool {
 	return false
 }
 
+/*
+判断是否能跳过编译，如果是替换包，或者前缀不是internal/或runtime/internal的包，不能跳过编译
+如果是unsafe包或者前缀为internal/或runtime/internal/则跳过编译
+*/
 func canSkipToBuild(pkgPath string) bool {
 	if _, ok := hasAltPkg[pkgPath]; ok {
 		return false

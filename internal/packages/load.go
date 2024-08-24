@@ -87,7 +87,7 @@ type loaderPackage struct {
 
 // loader holds the working state of a single call to load.
 type loader struct {
-	pkgs map[string]*loaderPackage
+	pkgs map[string]*loaderPackage //包ID到加载包属性的映射
 	Config
 	sizes        types.Sizes // TODO(xsw): ensure offset of sizes
 	parseCache   map[string]unsafe.Pointer
@@ -485,16 +485,20 @@ func loadRecursiveEx(dedup Deduper, ld *loader, lpkg *loaderPackage) {
 	})
 }
 
+// 分析加载的go包
 func refineEx(dedup Deduper, ld *loader, response *packages.DriverResponse) ([]*Package, error) {
 	roots := response.Roots
+	// 保存根包与索引的映射
 	rootMap := make(map[string]int, len(roots))
 	for i, root := range roots {
 		rootMap[root] = i
 	}
 	ld.pkgs = make(map[string]*loaderPackage)
 	// first pass, fixup and build the map and roots
-	var initial = make([]*loaderPackage, len(roots))
+	var initial = make([]*loaderPackage, len(roots)) //initial保存根加载包的属性
 	for _, pkg := range response.Packages {
+
+		// 获取根包索引，如果是根包索引不是-1，根包索引大于0
 		rootIndex := -1
 		if i, found := rootMap[pkg.ID]; found {
 			rootIndex = i
@@ -524,6 +528,8 @@ func refineEx(dedup Deduper, ld *loader, response *packages.DriverResponse) ([]*
 			lpkg.initial = true
 		}
 	}
+
+	// 检查是不是所有的根包都存在
 	for i, root := range roots {
 		if initial[i] == nil {
 			return nil, fmt.Errorf("root package %v is missing", root)
@@ -707,6 +713,7 @@ func refineEx(dedup Deduper, ld *loader, response *packages.DriverResponse) ([]*
 // provided for convenient display of all errors.
 func LoadEx(dedup Deduper, sizes func(types.Sizes) types.Sizes, cfg *Config, patterns ...string) ([]*Package, error) {
 	ld := newLoader(cfg)
+	//从磁盘加载指定模式的go包，返回的DriverResponse包含了未解释的go包，即包与包没有连接在一起。
 	response, external, err := defaultDriver(&ld.Config, patterns...)
 	if err != nil {
 		return nil, err
