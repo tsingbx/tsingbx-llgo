@@ -44,6 +44,16 @@ type PPD interface { // preprocessing directive
 }
 
 // =============================================================================
+type AccessSpecifier uint
+
+const (
+	Invalid AccessSpecifier = iota
+	Public
+	Protected
+	Private
+)
+
+// =============================================================================
 // Expressions (Types are also expressions)
 
 type BasicLitKind uint
@@ -120,10 +130,10 @@ const (
 	Class
 )
 
-// struct/union/enum/class Name
+// struct/union/enum/class (A::B::)Name
 type TagExpr struct {
 	Tag  Tag
-	Name *Ident
+	Name Expr // ScopingExpr, Ident
 }
 
 func (*TagExpr) exprNode() {}
@@ -159,11 +169,18 @@ func (*PointerType) exprNode() {}
 // ------------------------------------------------
 
 // X&
-type ReferenceType struct {
+type LvalueRefType struct {
 	X Expr
 }
 
-func (*ReferenceType) exprNode() {}
+func (*LvalueRefType) exprNode() {}
+
+// X&&
+type RvalueRefType struct {
+	X Expr
+}
+
+func (*RvalueRefType) exprNode() {}
 
 // ------------------------------------------------
 
@@ -219,6 +236,16 @@ func (*FuncType) exprNode() {}
 
 // ------------------------------------------------
 
+type RecordType struct {
+	Tag     Tag
+	Fields  *FieldList
+	Methods []*FuncDecl
+}
+
+func (*RecordType) exprNode() {}
+
+// ------------------------------------------------
+
 // Template<Arg1, Arg2, ...>
 type InstantiationType struct {
 	Template Expr
@@ -260,11 +287,17 @@ type EnumItem struct {
 
 func (*EnumItem) exprNode() {}
 
+type EnumType struct {
+	Items []*EnumItem
+}
+
+func (*EnumType) exprNode() {}
+
 // enum Name { Item1, Item2, ... };
 type EnumTypeDecl struct {
 	DeclBase
-	Name  *Ident
-	Items []*EnumItem
+	Name *Ident
+	Type *EnumType
 }
 
 func (*EnumTypeDecl) declNode() {}
@@ -274,8 +307,18 @@ func (*EnumTypeDecl) declNode() {}
 // Ret Name(Params);
 type FuncDecl struct {
 	DeclBase
-	Name *Ident
-	Type *FuncType
+	Name     *Ident
+	Type     *FuncType
+	IsInline bool
+	IsStatic bool
+
+	// Class method specific fields
+	IsConst       bool // const member function
+	IsExplicit    bool // explicit constructor
+	IsConstructor bool
+	IsDestructor  bool
+	IsVirtual     bool
+	IsOverride    bool
 }
 
 func (*FuncDecl) declNode() {}
@@ -285,10 +328,8 @@ func (*FuncDecl) declNode() {}
 // struct/union/class Name { Field1, Field2, ... };
 type TypeDecl struct {
 	DeclBase
-	Tag     Tag
-	Name    *Ident
-	Fields  *FieldList
-	Methods []*FuncDecl
+	Name *Ident
+	Type *RecordType
 }
 
 func (*TypeDecl) declNode() {}

@@ -51,8 +51,6 @@ func EVP_sha384() *EVP_MD
 //go:linkname EVP_sha512 C.EVP_sha512
 func EVP_sha512() *EVP_MD
 
-// -----------------------------------------------------------------------------
-
 type HMAC_CTX struct {
 	Unused [0]byte
 }

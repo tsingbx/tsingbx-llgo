@@ -1674,6 +1674,32 @@ func (c Cursor) Location() (loc SourceLocation) {
 }
 
 /**
+ * Determine whether the given cursor represents an anonymous
+ * tag or namespace
+ */
+// llgo:link (*Cursor).wrapIsAnonymous C.wrap_clang_Cursor_isAnonymous
+func (c *Cursor) wrapIsAnonymous() (ret c.Uint) {
+	return 0
+}
+
+func (c Cursor) IsAnonymous() (ret c.Uint) {
+	return c.wrapIsAnonymous()
+}
+
+/**
+ * Determine whether the given cursor represents an anonymous record
+ * declaration.
+ */
+// llgo:link (*Cursor).wrapIsAnonymousRecordDecl C.wrap_clang_Cursor_isAnonymousRecordDecl
+func (c *Cursor) wrapIsAnonymousRecordDecl() (ret c.Uint) {
+	return 0
+}
+
+func (c Cursor) IsAnonymousRecordDecl() (ret c.Uint) {
+	return c.wrapIsAnonymousRecordDecl()
+}
+
+/**
  * Represents the C++ access control level to a base class for a
  * cursor with kind CX_CXXBaseSpecifier.
  */
@@ -1838,6 +1864,20 @@ func (t Type) String() (ret String) {
 }
 
 /**
+ * Retrieve the underlying type of a typedef declaration.
+ *
+ * If the cursor does not reference a typedef declaration, an invalid type is
+ * returned.
+ */
+// llgo:link (*Cursor).wrapTypedefDeclUnderlyingType C.wrap_clang_getTypedefDeclUnderlyingType
+func (c *Cursor) wrapTypedefDeclUnderlyingType(ret *Type) { return }
+
+func (c Cursor) TypedefDeclUnderlyingType() (ret Type) {
+	c.wrapTypedefDeclUnderlyingType(&ret)
+	return
+}
+
+/**
  * Retrieve the return type associated with a function type.
  *
  * If a non-function type is passed in, an invalid type is returned.
@@ -1903,6 +1943,23 @@ func (t Type) ArrayElementType() (ret Type) {
 }
 
 /**
+ * For reference types (e.g., "const int&"), returns the type that the
+ * reference refers to (e.g "const int").
+ *
+ * Otherwise, returns the type itself.
+ *
+ * A type that has kind \c CXType_LValueReference or
+ * \c CXType_RValueReference is a reference type.
+ */
+// llgo:link (*Type).wrapNonReferenceType C.wrap_clang_getNonReferenceType
+func (t *Type) wrapNonReferenceType(ret *Type) { return }
+
+func (t Type) NonReferenceType() (ret Type) {
+	t.wrapNonReferenceType(&ret)
+	return
+}
+
+/**
  * Return the element type of an array, complex, or vector type.
  *
  * If a type is passed in that is not an array, complex, or vector type,
@@ -1926,6 +1983,19 @@ func (t *Type) wrapArraySize() (ret c.LongLong) { return 0 }
 
 func (t Type) ArraySize() (ret c.LongLong) {
 	return t.wrapArraySize()
+}
+
+/**
+ * Retrieve the type named by the qualified-id.
+ *
+ * If a non-elaborated type is passed in, an invalid type is returned.
+ */
+// llgo:link (*Type).wrapNamedType C.wrap_clang_Type_getNamedType
+func (t *Type) wrapNamedType(ret *Type) { return }
+
+func (t Type) NamedType() (ret Type) {
+	t.wrapNamedType(&ret)
+	return
 }
 
 /**
