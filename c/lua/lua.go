@@ -23,6 +23,14 @@ const (
 // ** space after that to help overflow detection)
 // */
 
+const (
+	REGISTRYINDEX = -MAXSTACK - 1000
+)
+
+func Upvalueindex(i c.Int) c.Int {
+	return c.Int(REGISTRYINDEX) - i
+}
+
 // /* thread status */
 const (
 	OK        = 0
@@ -91,7 +99,7 @@ type CFunction func(L *State) c.Int
 // ** Type for continuation functions
 // */
 
-// TODO(zzy): KFunction does not currently support
+// llgo:type C
 type KFunction func(L *State, status c.Int, ctx KContext) c.Int
 
 // /*
@@ -202,7 +210,8 @@ func (L *State) Iscfunction(idx c.Int) c.Int { return 0 }
 // llgo:link (*State).Isinteger C.lua_isinteger
 func (L *State) Isinteger(idx c.Int) c.Int { return 0 }
 
-// LUA_API int             (lua_isuserdata) (State *L, int idx);
+// llgo:link (*State).Isuserdata C.lua_isuserdata
+func (L *State) Isuserdata(idx c.Int) c.Int { return 0 }
 
 // llgo:link (*State).Type C.lua_type
 func (L *State) Type(idx c.Int) c.Int { return 0 }
@@ -227,7 +236,9 @@ func (L *State) Tolstring(idx c.Int, len *c.Ulong) *c.Char { return nil }
 // llgo:link (*State).Tocfunction C.lua_tocfunction
 func (L *State) Tocfunction(idx c.Int) CFunction { return nil }
 
-// LUA_API void	       *(lua_touserdata) (State *L, int idx);
+// llgo:link (*State).Touserdata C.lua_touserdata
+func (L *State) Touserdata(idx c.Int) c.Pointer { return nil }
+
 // LUA_API State      *(lua_tothread) (State *L, int idx);
 // LUA_API const void     *(lua_topointer) (State *L, int idx);
 
@@ -262,7 +273,9 @@ func (L *State) Pushcclosure(fn CFunction, n c.Int) {}
 // llgo:link (*State).Pushboolean C.lua_pushboolean
 func (L *State) Pushboolean(b c.Int) {}
 
-//void  (lua_pushlightuserdata) (State *L, void *p);
+// llgo:link (*State).Pushlightuserdata C.lua_pushlightuserdata
+func (L *State) Pushlightuserdata(p c.Pointer) {}
+
 //int   (lua_pushthread) (State *L);
 
 // /*
@@ -286,7 +299,8 @@ func (L *State) Getfield(idx c.Int, k *c.Char) c.Int { return 0 }
 // llgo:link (*State).Createtable C.lua_createtable
 func (L *State) Createtable(narr c.Int, nrec c.Int) {}
 
-// LUA_API void *(lua_newuserdatauv) (State *L, size_t sz, int nuvalue);
+// llgo:link (*State).Newuserdatauv C.lua_newuserdatauv
+func (L *State) Newuserdatauv(sz uintptr, nuvalue c.Int) c.Pointer { return nil }
 
 // llgo:link (*State).Getmetatable C.lua_getmetatable
 func (L *State) Getmetatable(objindex c.Int) c.Int { return 0 }
@@ -420,7 +434,10 @@ func (L *State) Tointeger(idx c.Int) Integer { return L.Tointegerx(idx, nil) }
 func (L *State) Pop(n c.Int)                 { L.Settop(-(n) - 1) }
 func (L *State) Newtable()                   { L.Createtable(0, 0) }
 
-// #define lua_register(L,n,f) (lua_pushcfunction(L, (f)), lua_setglobal(L, (n)))
+func (L *State) Register(name *c.Char, f CFunction) {
+	L.Pushcfunction(f)
+	L.Setglobal(name)
+}
 func (L *State) Pushcfunction(f CFunction) { L.Pushcclosure(f, 0) }
 
 func (L *State) Isfunction(n c.Int) bool      { return L.Type(n) == c.Int(FUNCTION) }
@@ -435,9 +452,19 @@ func (L *State) Isnoneornil(n c.Int) bool     { return L.Type(n) <= 0 }
 // #define lua_pushliteral(L, s)	lua_pushstring(L, "" s)
 // #define lua_pushglobaltable(L)  ((void)lua_rawgeti(L, LUA_REGISTRYINDEX, LUA_RIDX_GLOBALS))
 
-// #define lua_insert(L,idx)	lua_rotate(L, (idx), 1)
-// #define lua_remove(L,idx)	(lua_rotate(L, (idx), -1), lua_pop(L, 1))
-// #define lua_replace(L,idx)	(lua_copy(L, -1, (idx)), lua_pop(L, 1))
+func (L *State) Insert(idx c.Int) {
+	L.Rotate(idx, 1)
+}
+
+func (L *State) Remove(idx c.Int) {
+	L.Rotate(idx, -1)
+	L.Pop(1)
+}
+
+func (L *State) Replace(idx c.Int) {
+	L.Copy(-1, idx)
+	L.Pop(1)
+}
 
 // /* }============================================================== */
 
@@ -447,7 +474,10 @@ func (L *State) Isnoneornil(n c.Int) bool     { return L.Type(n) <= 0 }
 // ** ===============================================================
 // */
 
-// #define lua_newuserdata(L,s)	lua_newuserdatauv(L,s,1)
+func (L *State) Newuserdata(sz uintptr) c.Pointer {
+	return L.Newuserdatauv(sz, 1)
+}
+
 // #define lua_getuservalue(L,idx)	lua_getiuservalue(L,idx,1)
 // #define lua_setuservalue(L,idx)	lua_setiuservalue(L,idx,1)
 
@@ -475,10 +505,6 @@ const (
 // /*
 // ** Event masks
 // */
-// #define LUA_MASKCALL	(1 << LUA_HOOKCALL)
-// #define LUA_MASKRET	(1 << LUA_HOOKRET)
-// #define LUA_MASKLINE	(1 << LUA_HOOKLINE)
-// #define LUA_MASKCOUNT	(1 << LUA_HOOKCOUNT)
 
 const (
 	MASKCALL  = 1 << HOOKCOUNT
