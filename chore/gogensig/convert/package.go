@@ -19,20 +19,41 @@ type Package struct {
 	name string
 	p    *gogen.Package
 	cvt  *TypeConv
-	dels []any
 }
 
 func NewPackage(pkgPath, name string, conf *gogen.Config) *Package {
 	p := &Package{
 		p: gogen.NewPackage(pkgPath, name, conf),
 	}
+
+	// default file name is the package name
+	err := p.SetCurFile(name, false)
+	if err != nil {
+		panic(fmt.Errorf("SetDefaultFile %s for gogen Fail %w", name+".go", err))
+	}
+
 	clib := p.p.Import("github.com/goplus/llgo/c")
-	p.p.Unsafe().MarkForceUsed(p.p)
 	typeMap := NewBuiltinTypeMapWithPkgRefS(clib, p.p.Unsafe())
 	p.cvt = NewConv(p.p.Types, typeMap)
 	p.name = name
-	p.dels = make([]any, 0)
 	return p
+}
+
+func (p *Package) SetCurFile(file string, isHeaderFile bool) error {
+	var fileName string
+	if isHeaderFile {
+		// headerfile to go filename
+		fileName = p.processHeaderFileName(file)
+	} else {
+		// package name as the default file
+		fileName = file + ".go"
+	}
+	_, err := p.p.SetCurFile(fileName, true)
+	if err != nil {
+		return fmt.Errorf("fail to set current file %s\n%w", file, err)
+	}
+	p.p.Unsafe().MarkForceUsed(p.p)
+	return nil
 }
 
 func (p *Package) SetSymbolTable(symbolTable *config.SymbolTable) {
@@ -51,6 +72,10 @@ func (p *Package) SetCppgConf(conf *cppgtypes.Config) {
 
 func (p *Package) GetGenPackage() *gogen.Package {
 	return p.p
+}
+
+func (p *Package) Name() string {
+	return p.name
 }
 
 // todo(zzy):refine logic
@@ -75,7 +100,6 @@ func (p *Package) NewFuncDecl(funcDecl *ast.FuncDecl) error {
 	doc := CommentGroup(funcDecl.Doc)
 	doc.AddCommentGroup(NewFuncDocComments(funcDecl.Name.Name, string(goFuncName)))
 	decl.SetComments(p.p, doc.CommentGroup)
-	p.addToDelete(decl)
 	return nil
 }
 
@@ -90,12 +114,7 @@ func (p *Package) NewTypeDecl(typeDecl *ast.TypeDecl) error {
 		return err
 	}
 	decl.InitType(p.p, structType)
-	p.addToDelete(decl)
 	return nil
-}
-
-func (p *Package) addToDelete(node ast.Node) {
-	p.dels = append(p.dels, node)
 }
 
 func (p *Package) NewTypedefDecl(typedefDecl *ast.TypedefDecl) error {
@@ -121,7 +140,6 @@ func (p *Package) NewTypedefDecl(typedefDecl *ast.TypedefDecl) error {
 	if _, ok := typ.(*types.Signature); ok {
 		genDecl.SetComments(NewTypecDocComments())
 	}
-	p.addToDelete(typeSpecdecl)
 	return nil
 }
 
@@ -148,17 +166,6 @@ func (p *Package) NewEnumTypeDecl(enumTypeDecl *ast.EnumTypeDecl) error {
 	return nil
 }
 
-func (p *Package) delete() {
-	for _, del := range p.dels {
-		switch v := del.(type) {
-		case *gogen.TypeDecl:
-			// todo(zzy):cause a unexcepted space line
-			// may because the delete function dont remove the GenDecl in ast
-			v.Delete()
-		}
-	}
-}
-
 // Write generates a Go file based on the package content.
 // The output file will be generated in a subdirectory named after the package within the outputDir.
 // If outputDir is not provided, the current directory will be used.
@@ -169,20 +176,23 @@ func (p *Package) Write(headerFile, outputDir string) error {
 		return fmt.Errorf("failed to prepare output directory: %w", err)
 	}
 
-	fileName := p.processFileName(headerFile)
+	fileName := p.processHeaderFileName(headerFile)
 
-	if err := p.p.WriteFile(filepath.Join(dir, fileName)); err != nil {
+	if err := p.p.WriteFile(filepath.Join(dir, fileName), fileName); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
 
-	p.delete()
 	return nil
 }
 
-func (p *Package) WriteToBuffer(buf *bytes.Buffer) error {
-	err := p.p.WriteTo(buf)
-	p.delete()
-	return err
+func (p *Package) WriteToBuffer(headerFile string) (*bytes.Buffer, error) {
+	goFileName := p.processHeaderFileName(headerFile)
+	buf := new(bytes.Buffer)
+	err := p.p.WriteTo(buf, goFileName)
+	if err != nil {
+		return nil, fmt.Errorf("failed to write to buffer: %w", err)
+	}
+	return buf, nil
 }
 
 func (p *Package) prepareOutputDir(outputDir string) (string, error) {
@@ -203,7 +213,9 @@ func (p *Package) prepareOutputDir(outputDir string) (string, error) {
 	return dir, nil
 }
 
-func (p *Package) processFileName(headerFile string) string {
+// /path/to/foo.h
+// foo.go
+func (p *Package) processHeaderFileName(headerFile string) string {
 	_, fileName := filepath.Split(headerFile)
 	ext := filepath.Ext(fileName)
 	if len(ext) > 0 {

@@ -108,7 +108,7 @@ func TestPackageWrite(t *testing.T) {
 		defer os.RemoveAll(tempDir)
 
 		pkg := convert.NewPackage(".", "testpkg", &gogen.Config{})
-
+		pkg.SetCurFile(headerFilePath, true)
 		err = pkg.Write(headerFilePath, tempDir)
 		if err != nil {
 			t.Fatalf("Write method failed: %v", err)
@@ -129,7 +129,7 @@ func TestPackageWrite(t *testing.T) {
 		}()
 
 		pkg := convert.NewPackage(".", "testpkg", &gogen.Config{})
-
+		pkg.SetCurFile(headerFilePath, true)
 		err = pkg.Write(headerFilePath, "")
 		if err != nil {
 			t.Fatalf("Write method failed: %v", err)
@@ -147,7 +147,7 @@ func TestPackageWrite(t *testing.T) {
 		defer os.RemoveAll(tempDir)
 
 		pkg := convert.NewPackage(".", "testpkg", &gogen.Config{})
-
+		pkg.SetCurFile("", true)
 		err = pkg.Write("", tempDir)
 		if err != nil {
 			t.Fatalf("Write method failed: %v", err)
@@ -1264,8 +1264,8 @@ func compareError(t *testing.T, err error, expectErr string) {
 // compares the output of a gogen.Package with the expected
 func comparePackageOutput(t *testing.T, pkg *convert.Package, expect string) {
 	t.Helper()
-	var buf bytes.Buffer
-	err := pkg.WriteToBuffer(&buf)
+	// For Test,The Test package's header filename same as package name
+	buf, err := pkg.WriteToBuffer(pkg.Name() + ".h")
 	if err != nil {
 		t.Fatalf("WriteTo failed: %v", err)
 	}
@@ -1281,24 +1281,15 @@ func TestTypeClean(t *testing.T) {
 	pkg := convert.NewPackage(".", "testpkg", &gogen.Config{})
 	pkg.SetSymbolTable(config.CreateSymbolTable(
 		[]config.SymbolEntry{
-			{
-				CppName:    "Func1",
-				MangleName: "Func1",
-				GoName:     "Func1",
-			},
-			{
-				CppName:    "Func2",
-				MangleName: "Func2",
-				GoName:     "Func2",
-			},
+			{CppName: "Func1", MangleName: "Func1", GoName: "Func1"},
+			{CppName: "Func2", MangleName: "Func2", GoName: "Func2"},
 		},
 	))
 
-	var addedTypes []string
-
 	testCases := []struct {
-		addType func()
-		newType string
+		addType    func()
+		headerFile string
+		newType    string
 	}{
 		{
 			addType: func() {
@@ -1307,25 +1298,8 @@ func TestTypeClean(t *testing.T) {
 					Type: &ast.RecordType{Tag: ast.Struct},
 				})
 			},
-			newType: "Foo1",
-		},
-		{
-			addType: func() {
-				pkg.NewTypeDecl(&ast.TypeDecl{
-					Name: &ast.Ident{Name: "Bar1"},
-					Type: &ast.RecordType{Tag: ast.Struct},
-				})
-			},
-			newType: "Bar1",
-		},
-		{
-			addType: func() {
-				pkg.NewTypedefDecl(&ast.TypedefDecl{
-					Name: &ast.Ident{Name: "Foo2"},
-					Type: &ast.BuiltinType{Kind: ast.Bool},
-				})
-			},
-			newType: "Foo2",
+			headerFile: "file1.h",
+			newType:    "Foo1",
 		},
 		{
 			addType: func() {
@@ -1334,37 +1308,37 @@ func TestTypeClean(t *testing.T) {
 					Type: &ast.BuiltinType{Kind: ast.Int},
 				})
 			},
-			newType: "Bar2",
+			headerFile: "file2.h",
+			newType:    "Bar2",
 		},
 		{
 			addType: func() {
 				pkg.NewFuncDecl(&ast.FuncDecl{
-					Name:        &ast.Ident{Name: "Func1"},
-					MangledName: "Func1",
-					Type: &ast.FuncType{
-						Params: nil,
-						Ret:    nil,
-					},
+					Name: &ast.Ident{Name: "Func1"}, MangledName: "Func1",
+					Type: &ast.FuncType{Params: nil, Ret: nil},
 				})
 			},
-			newType: "Func1",
+			headerFile: "file3.h",
+			newType:    "Func1",
 		},
-		// todo(zzy):func2
 	}
 
 	for i, tc := range testCases {
+		pkg.SetCurFile(tc.headerFile, true)
 		tc.addType()
-		addedTypes = append(addedTypes, tc.newType)
 
-		var buf bytes.Buffer
-		pkg.WriteToBuffer(&buf)
+		buf, err := pkg.WriteToBuffer(tc.headerFile)
+		if err != nil {
+			t.Fatal(err)
+		}
 		result := buf.String()
 
 		if !strings.Contains(result, tc.newType) {
 			t.Errorf("Case %d: Generated type does not contain %s", i, tc.newType)
 		}
 
-		for j, oldType := range addedTypes[:len(addedTypes)-1] {
+		for j := 0; j < i; j++ {
+			oldType := testCases[j].newType
 			if strings.Contains(result, oldType) {
 				t.Errorf("Case %d: Previously added type %s (from case %d) still exists", i, oldType, j)
 			}
