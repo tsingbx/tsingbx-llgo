@@ -11,6 +11,12 @@ import (
 type BuiltinTypeMap struct {
 	pkgMap         map[string]gogen.PkgRef
 	builtinTypeMap map[ast.BuiltinType]types.Type
+	typeAliases    map[string]typeAliasInfo
+}
+
+type typeAliasInfo struct {
+	Type       types.Type
+	HeaderFile string
 }
 
 func NewBuiltinTypeMapWithPkgRefS(pkgs ...gogen.PkgRef) *BuiltinTypeMap {
@@ -28,7 +34,6 @@ func NewBuiltinTypeMap(pkgPath, name string, conf *gogen.Config) *BuiltinTypeMap
 	p := gogen.NewPackage(pkgPath, name, conf)
 	clib := p.Import("github.com/goplus/llgo/c")
 	builtinTypeMap := NewBuiltinTypeMapWithPkgRefS(clib, p.Unsafe())
-	builtinTypeMap.initBuiltinTypeMap()
 	return builtinTypeMap
 }
 
@@ -51,6 +56,14 @@ func (p *BuiltinTypeMap) FindBuiltinType(builtinType ast.BuiltinType) (types.Typ
 		return t, nil
 	}
 	return nil, fmt.Errorf("%s", "not found in type map")
+}
+
+func (p *BuiltinTypeMap) FindTypeAlias(name string) (types.Type, error) {
+	t, ok := p.typeAliases[name]
+	if ok {
+		return t.Type, nil
+	}
+	return nil, fmt.Errorf("%s", "not found in type alias map")
 }
 
 func (p *BuiltinTypeMap) initBuiltinTypeMap() {
@@ -76,5 +89,21 @@ func (p *BuiltinTypeMap) initBuiltinTypeMap() {
 		{Kind: ast.Float, Flags: ast.Double | ast.Long}:     p.CType("Double"),           // Long Double (same as double,need more precision)
 		{Kind: ast.Complex}:                                 types.Typ[types.Complex64],  // ComplexFloat
 		{Kind: ast.Complex, Flags: ast.Double}:              types.Typ[types.Complex128], // ComplexDouble
+	}
+
+	// todo(zzy): more types & platform
+	p.typeAliases = map[string]typeAliasInfo{
+		"int8_t":    {Type: p.CType("Char"), HeaderFile: "sys/_types/_int8_t.h"},
+		"uint8_t":   {Type: p.CType("Char"), HeaderFile: "_types/_uint8_t.h"},
+		"u_int8_t":  {Type: p.CType("Char"), HeaderFile: "sys/_types/_u_int8_t.h"},
+		"int16_t":   {Type: types.Typ[types.Int16], HeaderFile: "sys/_types/_int16_t.h"},
+		"uint16_t":  {Type: types.Typ[types.Uint16], HeaderFile: "_types/_uint16_t.h"},
+		"u_int16_t": {Type: types.Typ[types.Uint16], HeaderFile: "sys/_types/_u_int16_t.h"},
+		"int32_t":   {Type: p.CType("Int"), HeaderFile: "sys/_types/_int32_t.h"},
+		"uint32_t":  {Type: p.CType("Uint"), HeaderFile: "_types/_uint32_t.h"},
+		"u_int32_t": {Type: p.CType("Uint"), HeaderFile: "sys/_types/_u_int32_t.h"},
+		"int64_t":   {Type: p.CType("LongLong"), HeaderFile: "sys/_types/_int64_t.h"},
+		"uint64_t":  {Type: p.CType("UlongLong"), HeaderFile: "_types/_uint64_t.h"},
+		"u_int64_t": {Type: p.CType("UlongLong"), HeaderFile: "sys/_types/_u_int64_t.h"},
 	}
 }
