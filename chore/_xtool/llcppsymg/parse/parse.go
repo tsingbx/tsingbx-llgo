@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strconv"
 	"strings"
 
@@ -39,8 +40,17 @@ func (p *SymbolProcessor) setCurrentFile(filename string) {
 
 func (p *SymbolProcessor) TrimPrefixes(str string) string {
 	for _, prefix := range p.Prefixes {
-		if strings.HasPrefix(str, prefix) {
-			return strings.TrimPrefix(str, prefix)
+		fmt.Println(str, prefix, "=>")
+		exp, err := regexp.Compile(prefix)
+		if err != nil {
+			if strings.HasPrefix(str, prefix) {
+				result := strings.TrimPrefix(str, prefix)
+				return result
+			}
+		} else {
+			result := exp.ReplaceAllString(str, "")
+			fmt.Println(result)
+			return result
 		}
 	}
 	return str
