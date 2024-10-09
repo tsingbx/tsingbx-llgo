@@ -20,17 +20,19 @@ type SymbolInfo struct {
 }
 
 type SymbolProcessor struct {
-	Prefixes    []string
-	SymbolMap   map[string]*SymbolInfo
-	CurrentFile string
-	NameCounts  map[string]int
+	TrimPrefixes []string
+	ReplPrefixes []string
+	SymbolMap    map[string]*SymbolInfo
+	CurrentFile  string
+	NameCounts   map[string]int
 }
 
-func NewSymbolProcessor(Prefixes []string) *SymbolProcessor {
+func NewSymbolProcessor(TrimPrefixes []string, ReplPrefixes []string) *SymbolProcessor {
 	return &SymbolProcessor{
-		Prefixes:   Prefixes,
-		SymbolMap:  make(map[string]*SymbolInfo),
-		NameCounts: make(map[string]int),
+		TrimPrefixes: TrimPrefixes,
+		ReplPrefixes: ReplPrefixes,
+		SymbolMap:    make(map[string]*SymbolInfo),
+		NameCounts:   make(map[string]int),
 	}
 }
 
@@ -38,15 +40,31 @@ func (p *SymbolProcessor) setCurrentFile(filename string) {
 	p.CurrentFile = filename
 }
 
-func (p *SymbolProcessor) TrimPrefixes(str string) string {
-	for _, prefix := range p.Prefixes {
-		exp, err := regexp.Compile(prefix)
-		if err != nil {
-			if strings.HasPrefix(str, prefix) {
-				return strings.TrimPrefix(str, prefix)
-			}
-		} else {
-			return exp.ReplaceAllString(str, "")
+func TrimPrefix(org, prefix, repl string) (string, error) {
+	exp, err := regexp.Compile(prefix)
+	if err != nil {
+		if strings.HasPrefix(org, prefix) {
+			return strings.ReplaceAll(org, prefix, repl), nil
+		}
+		return org, fmt.Errorf("trim prefix fail")
+	}
+	result := exp.ReplaceAllString(org, repl)
+	if result == org {
+		return org, fmt.Errorf("trim prefix fail")
+	}
+	fmt.Println("org:", org, "prefix:", prefix, "repl:", repl, "result:", result)
+	return result, nil
+}
+
+func (p *SymbolProcessor) DoTrimPrefixes(str string) string {
+	for i, prefix := range p.TrimPrefixes {
+		repl := ""
+		if i < len(p.ReplPrefixes) {
+			repl = p.ReplPrefixes[i]
+		}
+		result, err := TrimPrefix(str, prefix, repl)
+		if err == nil {
+			return result
 		}
 	}
 	return str
@@ -74,7 +92,7 @@ func toUpperCamelCase(originName string) string {
 // 1. remove prefix from config
 // 2. convert to camel case
 func (p *SymbolProcessor) ToGoName(name string) string {
-	return toUpperCamelCase(p.TrimPrefixes(name))
+	return toUpperCamelCase(p.DoTrimPrefixes(name))
 }
 
 func (p *SymbolProcessor) GenMethodName(class, name string, isDestructor bool) string {
@@ -168,8 +186,8 @@ func (p *SymbolProcessor) visitTop(cursor, parent clang.Cursor) clang.ChildVisit
 	return clang.ChildVisit_Continue
 }
 
-func ParseHeaderFile(files []string, Prefixes []string, isCpp bool, isTemp bool) (map[string]*SymbolInfo, error) {
-	processer := NewSymbolProcessor(Prefixes)
+func ParseHeaderFile(files []string, TrimPrefixes []string, ReplPrefixes []string, isCpp bool, isTemp bool) (map[string]*SymbolInfo, error) {
+	processer := NewSymbolProcessor(TrimPrefixes, ReplPrefixes)
 	index := clang.CreateIndex(0, 0)
 	for _, file := range files {
 		_, unit, err := clangutils.CreateTranslationUnit(&clangutils.Config{
