@@ -40,17 +40,13 @@ func (p *SymbolProcessor) setCurrentFile(filename string) {
 
 func (p *SymbolProcessor) TrimPrefixes(str string) string {
 	for _, prefix := range p.Prefixes {
-		fmt.Println(str, prefix, "=>")
 		exp, err := regexp.Compile(prefix)
 		if err != nil {
 			if strings.HasPrefix(str, prefix) {
-				result := strings.TrimPrefix(str, prefix)
-				return result
+				return strings.TrimPrefix(str, prefix)
 			}
 		} else {
-			result := exp.ReplaceAllString(str, "")
-			fmt.Println(result)
-			return result
+			return exp.ReplaceAllString(str, "")
 		}
 	}
 	return str
