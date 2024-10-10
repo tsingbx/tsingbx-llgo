@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 	"strconv"
 	"strings"
 
 	"github.com/goplus/llgo/c"
 	"github.com/goplus/llgo/c/clang"
 	"github.com/goplus/llgo/chore/_xtool/llcppsymg/clangutils"
+	"github.com/goplus/llgo/chore/_xtool/llcppsymg/prefix"
 )
 
 type SymbolInfo struct {
@@ -40,34 +40,8 @@ func (p *SymbolProcessor) setCurrentFile(filename string) {
 	p.CurrentFile = filename
 }
 
-func TrimPrefix(org, prefix, repl string) (string, error) {
-	exp, err := regexp.Compile(prefix)
-	if err != nil {
-		if strings.HasPrefix(org, prefix) {
-			return strings.ReplaceAll(org, prefix, repl), nil
-		}
-		return org, fmt.Errorf("trim prefix fail")
-	}
-	result := exp.ReplaceAllString(org, repl)
-	if result == org {
-		return org, fmt.Errorf("trim prefix fail")
-	}
-	fmt.Println("org:", org, "prefix:", prefix, "repl:", repl, "result:", result)
-	return result, nil
-}
-
 func (p *SymbolProcessor) DoTrimPrefixes(str string) string {
-	for i, prefix := range p.TrimPrefixes {
-		repl := ""
-		if i < len(p.ReplPrefixes) {
-			repl = p.ReplPrefixes[i]
-		}
-		result, err := TrimPrefix(str, prefix, repl)
-		if err == nil {
-			return result
-		}
-	}
-	return str
+	return prefix.ReplacePrefixes(str, p.TrimPrefixes, p.ReplPrefixes)
 }
 
 func toTitle(s string) string {
