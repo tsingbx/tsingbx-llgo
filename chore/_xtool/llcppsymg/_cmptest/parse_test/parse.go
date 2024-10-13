@@ -216,9 +216,8 @@ int(lua_compare)(lua_State *L, int idx1, int idx2, int op);
 
 	for _, tc := range testCases {
 		fmt.Printf("=== Test Case: %s ===\n", tc.name)
-
 		symbolMap, err := parse.ParseHeaderFile([]string{tc.content}, tc.prefixes, tc.repls, tc.isCpp, true)
-
+    
 		if err != nil {
 			fmt.Printf("Error: %v\n", err)
 			continue
