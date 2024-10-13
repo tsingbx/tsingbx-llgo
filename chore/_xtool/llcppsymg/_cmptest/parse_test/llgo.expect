@@ -24,6 +24,10 @@ Before: No prefixes After: Prefixes: [lua_ luaL_]
 Before: lua_closethread After: closethread
 Before: luaL_checknumber After: checknumber
 
+=== Test TestReplacePrefix ===
+Before: lua_closethread After: Foo_closethread
+Before: luaL_checknumber After: Bar_checknumber
+
 === Test ToGoName ===
 Before: lua_closethread After: Closethread
 Before: luaL_checknumber After: Checknumber

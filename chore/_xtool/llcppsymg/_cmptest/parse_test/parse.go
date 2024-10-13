@@ -13,10 +13,24 @@ func main() {
 	TestGenHeaderFilePath()
 	TestNewSymbolProcessor()
 	TestRemovePrefix()
+	TestReplacePrefix()
 	TestToGoName()
 	TestGenMethodName()
 	TestAddSuffix()
 	TestParseHeaderFile()
+}
+
+func TestReplacePrefix() {
+	fmt.Println("=== Test TestReplacePrefix ===")
+	process := parse.NewSymbolProcessor([]string{"^lua?_", "^luaL?_"}, []string{"Foo_", "Bar_"})
+
+	testCases := []string{"lua_closethread", "luaL_checknumber"}
+
+	for _, input := range testCases {
+		result := process.DoTrimPrefixes(input)
+		fmt.Printf("Before: %s After: %s\n", input, result)
+	}
+	fmt.Println()
 }
 
 func TestGenHeaderFilePath() {
