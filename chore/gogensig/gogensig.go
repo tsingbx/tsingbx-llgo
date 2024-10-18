@@ -55,7 +55,9 @@ func main() {
 	check(err)
 
 	conf, err := config.GetCppgCfgFromPath("./llcppg.cfg")
-	check(err)
+	if err != nil {
+		conf = config.GetCppgCfgDefault()
+	}
 
 	runCommand("go", "mod", "init", conf.Name)
 	runCommand("go", "get", "github.com/goplus/llgo")

@@ -299,6 +299,9 @@ func HeaderFileToGo(headerFile string) string {
 	ext := filepath.Ext(fileName)
 	if len(ext) > 0 {
 		fileName = strings.TrimSuffix(fileName, ext)
+		if strings.HasPrefix(fileName, "_") {
+			fileName = "private" + fileName
+		}
 	}
 	if len(fileName) <= 0 {
 		fileName = "temp"

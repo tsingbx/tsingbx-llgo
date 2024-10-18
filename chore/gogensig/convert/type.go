@@ -7,8 +7,10 @@ import (
 	"fmt"
 	"go/token"
 	"go/types"
+	"math/rand"
 	"path/filepath"
 	"strings"
+	"time"
 	"unsafe"
 
 	"github.com/goplus/llgo/chore/gogensig/config"
@@ -210,6 +212,11 @@ func (p *TypeConv) defaultRecordField() []*types.Var {
 	}
 }
 
+func randFieldName() string {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	return "f" + fmt.Sprintf("%d", r.Int())
+}
+
 func (p *TypeConv) fieldToVar(field *ast.Field) (*types.Var, error) {
 	if field == nil {
 		return nil, fmt.Errorf("unexpected nil field")
@@ -219,6 +226,9 @@ func (p *TypeConv) fieldToVar(field *ast.Field) (*types.Var, error) {
 	var name string
 	if len(field.Names) > 0 {
 		name = field.Names[0].Name
+	}
+	if len(name) <= 0 {
+		name = randFieldName()
 	}
 	typ, err := p.ToType(field.Type)
 	if err != nil {

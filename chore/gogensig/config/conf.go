@@ -13,6 +13,10 @@ import (
 	cppgtypes "github.com/goplus/llgo/chore/llcppg/types"
 )
 
+func GetCppgCfgDefault() *cppgtypes.Config {
+	return &cppgtypes.Config{}
+}
+
 // llcppg.cfg
 func GetCppgCfgFromPath(filePath string) (*cppgtypes.Config, error) {
 	bytes, err := ReadFile(filePath)
