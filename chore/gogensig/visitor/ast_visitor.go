@@ -2,6 +2,8 @@ package visitor
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	"github.com/goplus/llgo/chore/llcppg/ast"
 )
@@ -14,7 +16,7 @@ type DocVisitor interface {
 	VisitStruct(structName *ast.Ident, fields *ast.FieldList, typeDecl *ast.TypeDecl)
 	//VisitClass(className *ast.Ident, fields *ast.FieldList, typeDecl *ast.TypeDecl)
 	//VisitMethod(className *ast.Ident, method *ast.FuncDecl, typeDecl *ast.TypeDecl)
-	//VisitUnion(unionName *ast.Ident, fields *ast.FieldList, typeDecl *ast.TypeDecl)
+	VisitUnion(unionName *ast.Ident, fields *ast.FieldList, typeDecl *ast.TypeDecl)
 	VisitEnumTypeDecl(enumTypeDecl *ast.EnumTypeDecl)
 	VisitTypedefDecl(typedefDecl *ast.TypedefDecl)
 }
@@ -61,7 +63,7 @@ func (p *BaseDocVisitor) visitFuncDecl(funcDecl *ast.FuncDecl) {
 }
 
 func (p *BaseDocVisitor) visitTypeDecl(typeDecl *ast.TypeDecl) {
-	if typeDecl == nil {
+	if typeDecl == nil || typeDecl.Name == nil || len(typeDecl.Name.Name) <= 0 {
 		return
 	}
 	if typeDecl.Type.Tag == ast.Class {
@@ -89,11 +91,11 @@ func (p *BaseDocVisitor) visitStruct(structName *ast.Ident, fields *ast.FieldLis
 }
 
 func (p *BaseDocVisitor) visitUnion(unionName *ast.Ident, fields *ast.FieldList, typeDecl *ast.TypeDecl) {
-	//p.VisitUnion(unionName, fields, typeDecl)
+	p.VisitUnion(unionName, fields, typeDecl)
 }
 
 func (p *BaseDocVisitor) visitEnumTypeDecl(enumTypeDecl *ast.EnumTypeDecl) {
-	if enumTypeDecl == nil {
+	if enumTypeDecl == nil || enumTypeDecl.Name == nil || len(enumTypeDecl.Name.Name) <= 0 {
 		return
 	}
 	p.VisitEnumTypeDecl(enumTypeDecl)
@@ -103,5 +105,47 @@ func (p *BaseDocVisitor) visitTypedefDecl(typedefDecl *ast.TypedefDecl) {
 	if typedefDecl == nil {
 		return
 	}
-	p.VisitTypedefDecl(typedefDecl)
+	switch v := typedefDecl.Type.(type) {
+	case *ast.RecordType:
+		name := NewRandIdent()
+		typeDecl := NewTypeDeclWithName(name, v)
+		p.visitTypeDecl(typeDecl)
+		typeDef := NewTypedefDecl(v.Tag, name)
+		p.visitTypedefDecl(typeDef)
+	case *ast.EnumType:
+		name := NewRandIdent()
+		enumTypeDecl := NewEnumTypeDecl(name, v)
+		p.visitEnumTypeDecl(enumTypeDecl)
+		typeDef := NewTypedefDecl(ast.Enum, name)
+		p.visitTypedefDecl(typeDef)
+	default:
+		p.VisitTypedefDecl(typedefDecl)
+	}
+}
+
+func NewRandIdent() *ast.Ident {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	n := r.Int()
+	name := "r" + fmt.Sprintf("%d", n)
+	return &ast.Ident{Name: name}
+}
+
+func NewTypeDeclWithName(name *ast.Ident, recordType *ast.RecordType) *ast.TypeDecl {
+	typDecl := &ast.TypeDecl{Name: name, Type: recordType}
+	return typDecl
+}
+
+func NewEnumTypeDecl(name *ast.Ident, enumType *ast.EnumType) *ast.EnumTypeDecl {
+	enumDecl := &ast.EnumTypeDecl{Name: name, Type: enumType}
+	return enumDecl
+}
+
+func NewTagExpr(tag ast.Tag, name *ast.Ident) *ast.TagExpr {
+	return &ast.TagExpr{Tag: tag, Name: name}
+}
+
+func NewTypedefDecl(tag ast.Tag, name *ast.Ident) *ast.TypedefDecl {
+	tagExpr := NewTagExpr(tag, name)
+	typedefDecl := &ast.TypedefDecl{Name: name, Type: tagExpr}
+	return typedefDecl
 }

@@ -23,6 +23,11 @@ _output/
 build.dir/
 .vscode/
 
+.devcontainer/
+llcppg.symb.json
+llcppg.cfg
+*.json
+
 # Test binary, built with `go test -c`
 *.test
 

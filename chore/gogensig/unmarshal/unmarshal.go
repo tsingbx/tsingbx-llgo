@@ -104,13 +104,18 @@ func UnmarshalFileSet(data []byte) (FileSet, error) {
 }
 
 func UnmarshalNode(data []byte) (ast.Node, error) {
+	if isJSONNull(data) {
+		return nil, nil
+	}
 	var temp struct {
 		Type string `json:"_Type"`
 	}
 	if err := json.Unmarshal(data, &temp); err != nil {
 		return nil, fmt.Errorf("error unmarshalling node type: %v", err)
 	}
-
+	if len(temp.Type) <= 0 {
+		return nil, fmt.Errorf("error unmarshalling node type: %v", "empty")
+	}
 	unmarshaler, ok := nodeUnmarshalers[temp.Type]
 	if !ok {
 		return nil, fmt.Errorf("unknown node type: %s", temp.Type)
@@ -260,15 +265,26 @@ func UnmarshalField(data []byte) (ast.Node, error) {
 		return nil, fmt.Errorf("error unmarshalling field Type: %w", err)
 	}
 
+	typeExpr, ok := typeNode.(ast.Expr)
+	if ok {
+		field := &ast.Field{
+			Doc:      fieldTemp.Doc,
+			Names:    fieldTemp.Names,
+			Comment:  fieldTemp.Comment,
+			Access:   fieldTemp.Access,
+			IsStatic: fieldTemp.IsStatic,
+			Type:     typeExpr,
+		}
+		return field, nil
+	}
+
 	field := &ast.Field{
 		Doc:      fieldTemp.Doc,
 		Names:    fieldTemp.Names,
 		Comment:  fieldTemp.Comment,
 		Access:   fieldTemp.Access,
 		IsStatic: fieldTemp.IsStatic,
-		Type:     typeNode.(ast.Expr),
 	}
-
 	return field, nil
 }
 

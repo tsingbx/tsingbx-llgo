@@ -46,7 +46,9 @@ func main() {
 	}
 	check(err)
 	conf, err := config.GetCppgCfgFromPath("./llcppg.cfg")
-	check(err)
+	if err != nil {
+		conf = config.GetCppgCfgDefault()
+	}
 
 	astConvert, err := convert.NewAstConvert(&convert.AstConvertConfig{
 		PkgName:  conf.Name,
