@@ -19,6 +19,7 @@ package main
 import (
 	"io"
 	"os"
+	"os/exec"
 
 	"github.com/goplus/llgo/chore/gogensig/config"
 	"github.com/goplus/llgo/chore/gogensig/convert"
@@ -26,6 +27,13 @@ import (
 	"github.com/goplus/llgo/chore/gogensig/unmarshal"
 	"github.com/goplus/llgo/chore/gogensig/visitor"
 )
+
+func runCommand(cmdName string, args ...string) error {
+	cmd := exec.Command(cmdName, args...)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
+}
 
 func main() {
 	var data []byte
@@ -45,8 +53,12 @@ func main() {
 		data, err = os.ReadFile(sigfetchFile)
 	}
 	check(err)
+
 	conf, err := config.GetCppgCfgFromPath("./llcppg.cfg")
 	check(err)
+
+	runCommand("go", "mod", "init", conf.Name)
+	runCommand("go", "get", "github.com/goplus/llgo")
 
 	astConvert, err := convert.NewAstConvert(&convert.AstConvertConfig{
 		PkgName:  conf.Name,
@@ -60,6 +72,7 @@ func main() {
 	err = p.ProcessFileSet(inputdata)
 	check(err)
 }
+
 func check(err error) {
 	if err != nil {
 		panic(err)
