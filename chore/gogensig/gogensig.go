@@ -20,6 +20,7 @@ import (
 	"io"
 	"os"
 	"os/exec"
+	"path/filepath"
 
 	"github.com/goplus/llgo/chore/gogensig/config"
 	"github.com/goplus/llgo/chore/gogensig/convert"
@@ -28,11 +29,21 @@ import (
 	"github.com/goplus/llgo/chore/gogensig/visitor"
 )
 
-func runCommand(cmdName string, args ...string) error {
-	cmd := exec.Command(cmdName, args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
+func runCommand(dir, cmdName string, args ...string) error {
+	execCmd := exec.Command(cmdName, args...)
+	execCmd.Stdout = os.Stdout
+	execCmd.Stderr = os.Stderr
+	execCmd.Dir = dir
+	return execCmd.Run()
+}
+
+func runGoCmds(pkg string) {
+	wd, _ := os.Getwd()
+	dir := filepath.Join(wd, pkg)
+	os.MkdirAll(dir, 0744)
+	os.Chdir(pkg)
+	runCommand(dir, "go", "mod", "init", pkg)
+	runCommand(dir, "go", "get", "github.com/goplus/llgo")
 }
 
 func main() {
@@ -55,12 +66,9 @@ func main() {
 	check(err)
 
 	conf, err := config.GetCppgCfgFromPath("./llcppg.cfg")
-	if err != nil {
-		conf = config.GetCppgCfgDefault()
-	}
+	check(err)
 
-	runCommand("go", "mod", "init", conf.Name)
-	runCommand("go", "get", "github.com/goplus/llgo")
+	runGoCmds(conf.Name)
 
 	astConvert, err := convert.NewAstConvert(&convert.AstConvertConfig{
 		PkgName:  conf.Name,
