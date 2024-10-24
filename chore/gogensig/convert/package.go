@@ -58,17 +58,11 @@ func NewPackage(config *PackageConfig) *Package {
 		panic(fmt.Errorf("failed to prepare output directory: %w", err))
 	}
 	p.outputDir = dir
-
-	// default file name is the package name
-	err = p.SetCurFile(config.Name, false)
-	if err != nil {
-		panic(fmt.Errorf("SetDefaultFile %s for gogen Fail %w", config.Name+".go", err))
-	}
-
 	clib := p.p.Import("github.com/goplus/llgo/c")
 	typeMap := NewBuiltinTypeMapWithPkgRefS(clib, p.p.Unsafe())
 	p.cvt = NewConv(p.p.Types, typeMap)
 	p.newTypes = make(map[string]struct{}, 0)
+	p.SetCurFile(p.Name(), false)
 	return p
 }
 
@@ -101,9 +95,6 @@ func (p *Package) SetCppgConf(conf *cppgtypes.Config) {
 		return
 	}
 	p.cvt.SetCppgConf(conf)
-	if conf.Libs != "" {
-		p.linkLib(conf.Libs)
-	}
 }
 
 func (p *Package) GetGenPackage() *gogen.Package {
@@ -124,6 +115,9 @@ func (p *Package) Name() string {
 
 // todo(zzy):refine logic
 func (p *Package) linkLib(lib string) error {
+	if lib == "" {
+		return fmt.Errorf("empty lib name")
+	}
 	linkString := fmt.Sprintf("link: %s;", lib)
 	p.p.CB().NewConstStart(types.Typ[types.String], "LLGoPackage").Val(linkString).EndInit(1)
 	return nil
@@ -260,6 +254,17 @@ func (p *Package) Write(headerFile string) error {
 	}
 
 	return nil
+}
+
+func (p *Package) WriteLinkFile() (string, error) {
+	fileName := p.name + "_autogen_link.go"
+	filePath := filepath.Join(p.outputDir, fileName)
+	p.p.SetCurFile(fileName, true)
+	p.linkLib(p.cvt.cppgConf.Libs)
+	if err := p.p.WriteFile(filePath, fileName); err != nil {
+		return "", fmt.Errorf("failed to write file: %w", err)
+	}
+	return filePath, nil
 }
 
 // WriteToBuffer writes the Go file to a buffer.
