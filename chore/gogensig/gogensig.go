@@ -67,6 +67,8 @@ func main() {
 	conf, err := config.GetCppgCfgFromPath("./llcppg.cfg")
 	check(err)
 
+	conf.Name = convert.NormalizeIdentName(conf.Name)
+
 	wd, err := os.Getwd()
 	check(err)
 

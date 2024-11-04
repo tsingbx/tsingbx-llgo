@@ -122,10 +122,12 @@ func (p *Package) NewFuncDecl(funcDecl *ast.FuncDecl) error {
 	if debug {
 		log.Printf("NewFuncDecl: %v\n", funcDecl.Name)
 	}
-	goFuncName, err := p.cvt.LookupSymbol(cfg.MangleNameType(funcDecl.MangledName))
+	managedName := cfg.MangleNameType(funcDecl.MangledName)
+	goFuncName, err := p.cvt.LookupSymbol(managedName)
 	if err != nil {
 		// not gen the function not in the symbolmap
-		return err
+		// return err
+		goFuncName = ToTitle(managedName)
 	}
 	if obj := p.p.Types.Scope().Lookup(goFuncName); obj != nil {
 		return fmt.Errorf("function %s already defined", goFuncName)

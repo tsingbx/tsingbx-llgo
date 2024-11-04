@@ -4,11 +4,14 @@ This file is used to convert type from ast type to types.Type
 package convert
 
 import (
+	"bufio"
+	"bytes"
 	"fmt"
 	"go/token"
 	"go/types"
 	"path/filepath"
 	"strings"
+	"unicode"
 	"unsafe"
 
 	"github.com/goplus/gogen"
@@ -22,6 +25,7 @@ type TypeConv struct {
 	symbolTable  *config.SymbolTable // llcppg.symb.json
 	trimPrefixes []string
 	typeMap      *BuiltinTypeMap
+	keywordMap   map[string]string
 	// todo(zzy):refine array type in func or param's context
 	inParam bool // flag to indicate if currently processing a param
 
@@ -43,7 +47,10 @@ func NewConv(conf *TypeConfig) *TypeConv {
 		conf:         conf,
 	}
 	typeConv.Types = conf.Types
-
+	typeConv.keywordMap = map[string]string{
+		"func": "fun",
+		"type": "typ",
+	}
 	return typeConv
 }
 
@@ -292,7 +299,7 @@ func (p *TypeConv) LookupSymbol(mangleName config.MangleNameType) (config.GoName
 	return e.GoName, nil
 }
 
-func (p *TypeConv) RemovePrefixedName(name string) string {
+func (p *TypeConv) removePrefixedName(name string) string {
 	if len(p.trimPrefixes) == 0 {
 		return name
 	}
@@ -302,6 +309,16 @@ func (p *TypeConv) RemovePrefixedName(name string) string {
 		}
 	}
 	return name
+}
+
+func (p *TypeConv) isKeyword(name string) (string, bool) {
+	ret, ok := p.keywordMap[name]
+	return ret, ok
+}
+
+func (p *TypeConv) RemovePrefixedName(name string) string {
+	removedName := p.removePrefixedName(name)
+	return removedName
 }
 
 // checks if a header file is aliased in the type map.
@@ -338,5 +355,39 @@ func (c *TypeConv) getRelativeHeaderPath(headerFile string) string {
 }
 
 func ToTitle(s string) string {
-	return strings.ToUpper(s[:1]) + s[1:]
+	if len(s) > 1 {
+		if unicode.IsLetter(rune(s[0])) {
+			return strings.ToUpper(s[:1]) + s[1:]
+		} else {
+			return "P" + s
+		}
+	}
+	return s
+}
+
+func NormalizeIdentName(name string) string {
+	buf := bytes.NewBufferString(name)
+	scan := bufio.NewScanner(buf)
+	scan.Split(func(data []byte, atEOF bool) (advance int, token []byte, err error) {
+		if atEOF && len(data) == 0 {
+			return 0, nil, nil
+		}
+		if i := bytes.IndexFunc(data, func(r rune) bool {
+			return !(unicode.IsLetter(r) || r == '_' || unicode.IsDigit(r))
+		}); i >= 0 {
+			rep := bytes.NewBuffer(data[0:i])
+			rep.WriteRune('_')
+			return i + 1, rep.Bytes(), nil
+		}
+		if atEOF {
+			return len(data), data, nil
+		}
+		return len(data), data, nil
+	})
+	str := strings.Builder{}
+	for scan.Scan() {
+		s := scan.Text()
+		str.WriteString(s)
+	}
+	return str.String()
 }
