@@ -93,13 +93,31 @@ func testFromDir(t *testing.T, relDir string, gen bool) {
 	}
 	for _, fi := range fis {
 		name := fi.Name()
-		if strings.HasPrefix(name, "_") {
+		if strings.HasPrefix(name, "_") || strings.HasPrefix(name, ".") {
 			continue
 		}
 		t.Run(name, func(t *testing.T) {
 			testFrom(t, name, dir+"/"+name, gen, nil)
 		})
 	}
+}
+
+func writeGot(got string, name string) error {
+	if false {
+		homeDir, err := os.UserHomeDir()
+		if err != nil {
+			return err
+		}
+		fname := name + ".expect"
+		dir := filepath.Join(homeDir, "got")
+		err = os.MkdirAll(dir, 0744)
+		if err != nil {
+			return err
+		}
+		filename := filepath.Join(dir, fname)
+		return os.WriteFile(filename, []byte(got), 0644)
+	}
+	return nil
 }
 
 func testFrom(t *testing.T, name, dir string, gen bool, validateFunc func(t *testing.T, pkg *convert.Package)) {
@@ -221,6 +239,7 @@ func testFrom(t *testing.T, name, dir string, gen bool, validateFunc func(t *tes
 	} else {
 		expect := string(expectContent)
 		got := res.String()
+		writeGot(got, name)
 		if strings.TrimSpace(expect) != strings.TrimSpace(got) {
 			t.Errorf("does not match expected.\nExpected:\n%s\nGot:\n%s", expect, got)
 		}
